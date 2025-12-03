@@ -295,7 +295,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
         </Button>
       </DialogTrigger>
       <DialogContent 
-        className="max-w-lg overflow-hidden flex flex-col bg-white/70 dark:bg-black/30 backdrop-blur-2xl border-2 border-gray-200/60 dark:border-white/10 shadow-[0_20px_60px_0_rgba(0,0,0,0.25)] rounded-xl transition-smooth data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-95 duration-300 ease-out"
+        className="max-w-lg overflow-hidden flex flex-col bg-white/50 dark:bg-black/20 backdrop-blur-2xl border-2 border-gray-300 dark:border-gray-400 shadow-[0_20px_60px_0_rgba(0,0,0,0.25)] rounded-xl transition-smooth data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-95 duration-300 ease-out"
         style={{
           maxHeight: 'min(90vh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 40px))',
           touchAction: 'pan-y',

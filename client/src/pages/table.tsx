@@ -1156,9 +1156,9 @@ export default function TablePage() {
           onSetTheme={setTheme}
         />
       </div>
-      <main className="fixed inset-0 bg-gray-50 dark:bg-[#0a0a0a] pt-[72px] pb-24 overflow-y-auto">
-        <div className="w-full flex justify-center mt-[5%]">
-          <div id="zoomable-content" className="max-w-3xl w-full px-6 py-8" data-testid="table-page">
+      <main className="fixed inset-0 bg-transparent pt-[72px] pb-24 overflow-y-auto">
+        <div className="w-full flex justify-center mt-[5%] min-h-full">
+          <div id="zoomable-content" className="max-w-3xl w-full px-6 py-8 origin-top" data-testid="table-page">
           {/* Header Section - Carousel with Pages */}
           <div className="mb-8 relative animate-in fade-in slide-in-from-top-2 duration-600 delay-300">
             {sortedPages.length > 0 ? (

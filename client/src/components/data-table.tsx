@@ -778,11 +778,11 @@ export function DataTable({
 
   return (
     <div
-      className="border-2 border-slate-300 dark:border-blue-500/30 shadow-2xl table-container my-10 rounded-xl overflow-hidden bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-blue-950/40 dark:to-gray-900/40 backdrop-blur-sm"
+      className="border-2 border-gray-700 dark:border-blue-500/30 shadow-2xl table-container my-10 rounded-xl overflow-hidden bg-transparent"
       data-testid="data-table"
     >
       {/* Single Row: Filter/Sort/Search + Action Buttons */}
-      <div className="flex justify-between items-center px-6 py-3 border-b border-blue-200 dark:border-blue-500/30 ocean:border-cyan-500/40 bg-gradient-to-r from-blue-50/80 via-gray-100/40 to-white/80 dark:from-blue-950/40 dark:to-gray-900/40 ocean:from-cyan-950/50 ocean:to-blue-950/50 backdrop-blur-sm shadow-lg transition-all duration-500">
+      <div className="flex justify-between items-center px-6 py-3 border-b border-gray-700 dark:border-blue-500/30 ocean:border-cyan-500/40 bg-gray-700 dark:bg-transparent text-gray-300 dark:text-inherit shadow-lg transition-all duration-500">
         <div className="flex items-center gap-2 flex-shrink-0">
           {/* Custom Toolbar Content */}
           {customToolbarContent && (
@@ -1133,7 +1133,7 @@ export function DataTable({
       )}
       <div className="w-full">
         <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="border border-slate-300 dark:border-blue-500/20 rounded-lg overflow-hidden flex flex-col">
+          <div className="border border-gray-700 dark:border-blue-500/20 overflow-hidden flex flex-col">
             {/* Scrollable Container for Header, Body, Footer */}
             <div className="overflow-x-auto overflow-y-auto max-h-[700px]">
               <Table className="min-w-full">
@@ -1159,7 +1159,7 @@ export function DataTable({
                           <TableHead
                             ref={provided.innerRef}
                             {...provided.draggableProps}
-                            className="px-4 py-2 text-center table-header-footer-12px font-semibold tracking-wide sticky top-0 whitespace-nowrap border-transparent text-slate-700 dark:text-blue-100"
+                            className="px-4 py-2 text-center table-header-footer-12px font-semibold tracking-wide sticky top-0 whitespace-nowrap border-transparent text-blue-600 dark:text-blue-400"
                             style={{
                               textAlign: "center",
                               textDecoration: "normal",
@@ -1802,30 +1802,24 @@ export function DataTable({
 
           {/* Pagination Controls */}
           {!disablePagination && (
-            <div className="flex flex-col items-center justify-center gap-1.5 px-4 py-3 border-t border-blue-200 dark:border-blue-500/30 ocean:border-cyan-500/40 bg-gradient-to-r from-blue-50/80 via-gray-100/40 to-white/80 dark:from-blue-950/40 dark:to-gray-900/40 ocean:from-cyan-950/50 ocean:to-blue-950/50 backdrop-blur-sm shadow-lg transition-all duration-500">
+            <div className="flex flex-col items-center justify-center gap-1.5 px-4 py-3 border-t border-gray-700 dark:border-blue-500/30 ocean:border-cyan-500/40 bg-gray-700 dark:bg-transparent text-gray-300 dark:text-inherit shadow-lg transition-all duration-500">
               
               <div className="flex items-center justify-between gap-1 w-full">
                 {/* Left: Entries per page selector with showing text */}
-                <div className="flex items-center gap-1.5 text-[9px] font-medium text-muted-foreground">
+                <div className="flex items-center gap-1.5 text-[9px] font-medium text-muted-foreground flex-shrink-0">
                   <Select value={String(pageSize)} onValueChange={handlePageSizeChange}>
-                    <SelectTrigger className="h-5 w-5 p-0 text-[8px] pagination-button rounded-lg [&>svg]:hidden flex items-center justify-center">
+                    <SelectTrigger className="h-5 w-5 p-0 text-[8px] pagination-button rounded-lg [&>svg]:hidden flex items-center justify-center flex-shrink-0">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="8">8</SelectItem>
                       <SelectItem value="16">16</SelectItem>
-                      <SelectItem value="24">24</SelectItem>
-                      <SelectItem value="32">32</SelectItem>
-                      <SelectItem value="48">48</SelectItem>
-                      <SelectItem value="999999">
-                        <div className="flex items-center gap-1">
-                          <Infinity className="w-3 h-3" />
-                          <span>All</span>
-                        </div>
-                      </SelectItem>
+                      <SelectItem value="30">30</SelectItem>
+                      <SelectItem value="50">50</SelectItem>
+                      <SelectItem value="100">100</SelectItem>
+                      <SelectItem value="999999">{filteredRowsCount}</SelectItem>
                     </SelectContent>
                   </Select>
-                  <span className="whitespace-nowrap">
+                  <span className="whitespace-nowrap flex-shrink-0">
                     Showing {((currentPage - 1) * pageSize) + 1} to {Math.min(currentPage * pageSize, filteredRowsCount)} of {filteredRowsCount} items in {totalPages} pages
                   </span>
                 </div>
