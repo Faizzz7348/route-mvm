@@ -778,16 +778,16 @@ export function DataTable({
 
   return (
     <div
-      className="border border-gray-200/60 dark:border-gray-800/60 shadow-md shadow-black/10 dark:shadow-black/30 table-container my-10 rounded-2xl overflow-hidden bg-white dark:bg-gray-900/90"
+      className="border border-gray-600 dark:border-gray-800/60 shadow-md shadow-black/10 dark:shadow-black/30 table-container my-10 rounded-2xl overflow-hidden bg-white dark:bg-gray-900/90"
       data-testid="data-table"
     >
       {/* Single Row: Filter/Sort/Search + Action Buttons */}
-      <div className="flex justify-between items-center px-6 py-3 border-b border-gray-200/60 dark:border-gray-800/60 bg-gray-800 dark:bg-gray-950/50 shadow-sm transition-all duration-500">
+      <div className="flex justify-between items-center px-6 py-3 border-b border-gray-600 dark:border-gray-800/60 bg-gray-800 dark:bg-gray-950/50 shadow-sm transition-all duration-500">
         {/* Left Side: Sort, Filter, and Action Buttons */}
         <div className="flex items-center gap-2 flex-shrink-0">
           {/* Custom Toolbar Content */}
           {customToolbarContent && (
-            <div className="mr-4 border-r border-slate-300 dark:border-blue-500/20 pr-4">
+            <div className="mr-4 border-r border-gray-600 dark:border-blue-500/20 pr-4">
               {customToolbarContent}
             </div>
           )}
@@ -1070,7 +1070,7 @@ export function DataTable({
       </div>
       {/* Active Filters Display */}
       {(searchTerm || filterValue.length > 0 || deliveryFilterValue.length > 0) && (
-        <div className="px-6 py-2 border-b border-gray-200/60 dark:border-gray-800/60 bg-gray-800 dark:bg-gray-950/50">
+        <div className="px-6 py-2 border-b border-gray-600 dark:border-gray-800/60 bg-gray-800 dark:bg-gray-950/50">
           <div className="flex flex-wrap items-center gap-1">
             <span className="text-gray-400 dark:text-gray-300 font-semibold text-xs">Active:</span>
             {searchTerm && (
@@ -1134,11 +1134,11 @@ export function DataTable({
       )}
       <div className="w-full">
         <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="border border-gray-200/40 dark:border-gray-800/40 overflow-hidden flex flex-col">
+          <div className="border border-gray-600 dark:border-gray-800/40 overflow-hidden flex flex-col">
             {/* Scrollable Container for Header, Body, Footer */}
             <div className="overflow-x-auto overflow-y-auto max-h-[700px]">
               <Table className="min-w-full">
-                <TableHeader className="sticky top-0 z-20 [&_tr]:border-b [&_tr]:border-slate-300 dark:[&_tr]:border-blue-500/20 shadow-[inset_0_-2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_-2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
+                <TableHeader className="sticky top-0 z-20 [&_tr]:border-b [&_tr]:border-gray-600 dark:[&_tr]:border-blue-500/20 shadow-[inset_0_-2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_-2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
               <Droppable
                 droppableId="columns"
                 direction="horizontal"
@@ -1286,7 +1286,7 @@ export function DataTable({
                                     return "bg-gray-200 dark:bg-gray-900";
                                   }
                                 })()
-                              } hover:bg-slate-50 hover:shadow-md dark:hover:bg-blue-800/20 dark:hover:shadow-[0_2px_12px_rgba(59,130,246,0.25)] transition-all duration-300 hover:-translate-y-0.5 border-b border-slate-200 dark:border-blue-700/20 ${
+                              } hover:bg-slate-50 hover:shadow-md dark:hover:bg-blue-800/20 dark:hover:shadow-[0_2px_12px_rgba(59,130,246,0.25)] transition-all duration-300 hover:-translate-y-0.5 border-b border-gray-600 dark:border-blue-700/20 ${
                                 snapshot.isDragging ? "drag-elevate" : ""
                               }`}
                               data-testid={`table-row-${row.id}`}
@@ -1751,7 +1751,7 @@ export function DataTable({
             
             {/* Table Footer */}
             <tfoot className="sticky bottom-0 z-20 shadow-[inset_0_2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
-              <TableRow className="border-t border-slate-300 dark:border-blue-500/20">
+              <TableRow className="border-t border-gray-600 dark:border-blue-500/20">
                 {visibleColumns.map((column, index) => (
                   <TableCell
                     key={column.id}
@@ -1803,7 +1803,7 @@ export function DataTable({
 
           {/* Pagination Controls */}
           {!disablePagination && (
-            <div className="flex flex-col items-center justify-center gap-1.5 px-4 py-3 border-t border-gray-200/60 dark:border-gray-800/60 bg-gray-800 dark:bg-transparent shadow-sm transition-all duration-500">
+            <div className="flex flex-col items-center justify-center gap-1.5 px-4 py-3 border-t border-gray-600 dark:border-gray-800/60 bg-gray-800 dark:bg-transparent shadow-sm transition-all duration-500">
               
               <div className="flex items-center justify-between gap-1 w-full">
                 {/* Left: Entries per page selector with showing text */}
