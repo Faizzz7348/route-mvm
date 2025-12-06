@@ -221,33 +221,33 @@ textarea {
 }
 
 .light {
-  /* Light Theme - Soft & Muted Colors */
-  --background: hsl(240, 8%, 88%);
-  --foreground: hsl(240, 10%, 18%);
-  --card: hsl(240, 5%, 92%);
-  --card-foreground: hsl(240, 10%, 18%);
-  --popover: hsl(240, 5%, 92%);
-  --popover-foreground: hsl(240, 10%, 18%);
+  /* Light Theme - Dark Grey Colors */
+  --background: hsl(0, 0%, 85%);
+  --foreground: hsl(0, 0%, 20%);
+  --card: hsl(0, 0%, 75%);
+  --card-foreground: hsl(0, 0%, 20%);
+  --popover: hsl(0, 0%, 75%);
+  --popover-foreground: hsl(0, 0%, 20%);
   --primary: hsl(221, 65%, 45%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(240, 8%, 84%);
-  --secondary-foreground: hsl(240, 10%, 22%);
-  --muted: hsl(240, 8%, 80%);
-  --muted-foreground: hsl(240, 6%, 40%);
-  --accent: hsl(240, 8%, 86%);
-  --accent-foreground: hsl(240, 10%, 22%);
+  --secondary: hsl(0, 0%, 70%);
+  --secondary-foreground: hsl(0, 0%, 15%);
+  --muted: hsl(0, 0%, 65%);
+  --muted-foreground: hsl(0, 0%, 35%);
+  --accent: hsl(0, 0%, 70%);
+  --accent-foreground: hsl(0, 0%, 15%);
   --destructive: hsl(0, 60%, 45%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 8%, 78%);
-  --input: hsl(240, 8%, 84%);
+  --border: hsl(0, 0%, 55%);
+  --input: hsl(0, 0%, 60%);
   --ring: hsl(221, 65%, 45%);
   --chart-1: hsl(221, 70%, 48%);
   --chart-2: hsl(199, 75%, 45%);
   --chart-3: hsl(173, 50%, 38%);
   --chart-4: hsl(142, 60%, 42%);
   --chart-5: hsl(79, 60%, 40%);
-  --sidebar: hsl(240, 5%, 96%);
-  --sidebar-foreground: hsl(240, 8%, 20%);
+  --sidebar: hsl(0, 0%, 80%);
+  --sidebar-foreground: hsl(0, 0%, 15%);
   --sidebar-primary: hsl(221, 70%, 48%);
   --sidebar-primary-foreground: hsl(0, 0%, 100%);
   --sidebar-accent: hsl(240, 8%, 90%);

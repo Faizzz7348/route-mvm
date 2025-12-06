@@ -126,7 +126,7 @@ export function Footer({ editMode = false }: FooterProps) {
   return (
     <>
       <footer 
-        className={`fixed bottom-0 left-0 right-0 z-40 w-full border-t-2 border-blue-500/50 dark:border-blue-400/50 bg-gradient-to-r from-blue-500/10 via-blue-600/10 to-blue-700/10 dark:from-blue-500/20 dark:via-blue-600/20 dark:to-blue-700/20 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm shadow-blue-500/20 transition-all duration-500 ease-out ${
+        className={`fixed bottom-0 left-0 right-0 z-40 w-full border-t-2 border-blue-500/50 dark:border-blue-400/50 bg-gray-800 dark:bg-gray-900 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm shadow-blue-500/20 transition-all duration-500 ease-out ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
         }`}
       >

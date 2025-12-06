@@ -79,7 +79,7 @@ export function SlideMenu({
       
       {/* Menu Panel - iPhone Paste Style */}
       <div className="fixed top-[72px] right-3 z-[110] w-[280px] transition-all duration-300 ease-out animate-in slide-in-from-right-2 zoom-in-95">
-        <div className="bg-white/95 dark:bg-gray-900/95 ocean:bg-blue-950/95 backdrop-blur-xl rounded-[16px] shadow-md border border-black/5 dark:border-white/10 ocean:border-cyan-500/20 overflow-hidden">
+        <div className="bg-gray-200/95 dark:bg-gray-900/95 ocean:bg-blue-950/95 backdrop-blur-xl rounded-[16px] shadow-md border border-black/5 dark:border-white/10 ocean:border-cyan-500/20 overflow-hidden">
           <div className="max-h-[400px] overflow-y-auto py-1">
             {/* Primary Actions */}
             {editMode ? (
