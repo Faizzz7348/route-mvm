@@ -808,11 +808,11 @@ html.dark tfoot tr th .footer-total-blue {
 }
 
 .pagination-button.page-number {
-  color: rgb(113, 113, 122);
+  color: rgb(229, 228, 226); /* Platinum */
 }
 
 .dark .pagination-button.page-number {
-  color: rgb(212, 212, 216);
+  color: rgb(229, 228, 226); /* Platinum */
 }
 
 .pagination-button:hover {
@@ -827,19 +827,30 @@ html.dark tfoot tr th .footer-total-blue {
   border-color: rgba(59, 130, 246, 0.6);
 }
 
+.pagination-button:active {
+  transform: scale(0.95);
+  background: rgba(59, 130, 246, 0.3);
+  border-color: rgb(59, 130, 246);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .pagination-button:active {
+  transform: scale(0.95);
+  background: rgba(59, 130, 246, 0.4);
+  border-color: rgba(59, 130, 246, 0.8);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .pagination-button.active {
-  /* Same background as normal button */
-  background: transparent;
-  color: rgb(0, 0, 0);
+  /* Background set via inline classes: bg-gray-700 dark:bg-gray-800 */
   font-weight: 600;
   /* Slow blinking border animation */
   animation: pagination-border-blink 2s ease-in-out infinite;
 }
 
 .dark .pagination-button.active {
-  /* Same background as normal button in dark mode */
-  background: transparent;
-  color: rgb(147, 197, 253);
+  /* Background set via inline classes: bg-gray-700 dark:bg-gray-800 */
+  /* Text color set via inline classes: text-gray-400 */
   /* Slow blinking border animation */
   animation: pagination-border-blink-dark 2s ease-in-out infinite;
 }

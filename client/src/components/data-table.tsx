@@ -237,6 +237,7 @@ export function DataTable({
     string | null
   >(null);
   const [sortState, setSortState] = useState<{column: string; direction: 'asc' | 'desc'} | null>(null);
+  const [searchExpanded, setSearchExpanded] = useState(false);
   const { toast } = useToast();
 
   // Filter columns to hide "info" column when not in edit mode
@@ -797,13 +798,13 @@ export function DataTable({
             <PopoverTrigger asChild>
               <Button 
                 variant="outline" 
-                className="h-8 w-8 p-0 pagination-button rounded-lg"
+                className="h-8 w-8 p-0 pagination-button rounded-lg data-[state=open]:bg-gray-700 dark:data-[state=open]:bg-gray-800"
                 data-testid="sort-trigger"
               >
                 {sortState ? (
-                  sortState.direction === 'asc' ? <ArrowUp className="w-4 h-4 text-gray-100" /> : <ArrowDown className="w-4 h-4 text-gray-100" />
+                  sortState.direction === 'asc' ? <ArrowUp className="w-4 h-4 text-gray-100 group-data-[state=open]:text-gray-400" /> : <ArrowDown className="w-4 h-4 text-gray-100 group-data-[state=open]:text-gray-400" />
                 ) : (
-                  <ArrowUpDown className="w-4 h-4 opacity-50 text-gray-100" />
+                  <ArrowUpDown className="w-4 h-4 opacity-50 text-gray-100 group-data-[state=open]:text-gray-400" />
                 )}
               </Button>
             </PopoverTrigger>
@@ -912,21 +913,23 @@ export function DataTable({
           </Popover>
           
           {/* Combined Filter Section */}
-          <div className="w-auto">
+          <div className="w-auto relative group">
             <Popover>
               <PopoverTrigger asChild>
                 <Button 
                   variant="outline" 
-                  className="h-8 w-8 p-0 pagination-button rounded-lg relative" 
+                  className="h-8 w-8 p-0 pagination-button rounded-lg relative data-[state=open]:bg-gray-700 dark:data-[state=open]:bg-gray-800" 
                   data-testid="combined-filter-trigger"
                 >
-                  <Filter className="w-4 h-4 text-gray-400 dark:text-current" />
-                  {(filterValue.length > 0 || deliveryFilterValue.length > 0) && (
-                    <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-500 dark:bg-red-400 rounded-full w-2.5 h-2.5 border-2 border-white dark:border-gray-900 z-50"></span>
-                  )}
+                  <Filter className="w-4 h-4 text-gray-100 group-data-[state=open]:text-gray-400" />
                 </Button>
               </PopoverTrigger>
-            <PopoverContent className="w-64 p-0" align="start">
+              {(filterValue.length > 0 || deliveryFilterValue.length > 0) && (
+                <span className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 bg-red-500 dark:bg-red-400 rounded-full min-w-[18px] h-[18px] px-1 flex items-center justify-center text-white text-[9px] font-bold border-2 border-white dark:border-gray-900 z-[100] pointer-events-none">
+                  {filterValue.length + deliveryFilterValue.length}
+                </span>
+              )}
+              <PopoverContent className="w-64 p-0" align="start">
               <div className="p-3 btn-glass rounded-lg">
                 {/* Routes Section - Hidden in shared view */}
                 {!isSharedView && (
@@ -1011,7 +1014,7 @@ export function DataTable({
                   title="Customize Columns"
                   data-testid="button-customize-columns"
                 >
-                  <svg className="w-3.5 h-3.5 text-gray-400 dark:text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                   </svg>
                 </Button>
@@ -1025,7 +1028,7 @@ export function DataTable({
                   title="Route Optimization"
                   data-testid="button-optimize-route"
                 >
-                  <Route className="w-3.5 h-3.5 text-gray-400 dark:text-current" />
+                  <Route className="w-3.5 h-3.5 text-gray-100" />
                 </Button>
               )}
               {onShareTable && !hideShareButton && (
@@ -1037,35 +1040,56 @@ export function DataTable({
                   title="Share Table"
                   data-testid="button-share-table"
                 >
-                  <Share2 className="w-3.5 h-3.5 text-gray-400 dark:text-current" />
+                  <Share2 className="w-3.5 h-3.5 text-gray-100" />
                 </Button>
               )}
             </>
           )}
         </div>
         
-        {/* Right Side: Search Input - Takes remaining space */}
-        <div className="flex-1 flex items-center gap-2 ml-4">
-          <div className="relative group flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
-            <Input
-              placeholder="Search..."
-              value={searchTerm}
-              onChange={(e) => onSearchTermChange?.(e.target.value)}
-              className="pl-7 pr-7 h-8 bg-transparent text-foreground placeholder:text-muted-foreground border-2 border-primary/20 hover:border-primary/30 hover:bg-primary/5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 focus-visible:border-primary/40 focus-visible:bg-primary/5 disabled:cursor-not-allowed disabled:opacity-50 transition-colors text-sm"
-              data-testid="search-input"
-            />
-            {searchTerm && (
-              <button
-                onClick={() => onSearchTermChange?.('')}
-                className="absolute right-1 top-1/2 transform -translate-y-1/2 p-0.5 w-5 h-5 rounded-full hover:bg-muted/50 transition-colors flex items-center justify-center"
-                data-testid="clear-search"
-                aria-label="Clear search"
-              >
-                <X className="w-2.5 h-2.5 text-muted-foreground hover:text-foreground" />
-              </button>
-            )}
-          </div>
+        {/* Right Side: Search Button/Input - Takes remaining space */}
+        <div className="flex-1 flex items-center gap-2 ml-4 justify-end">
+          {!searchExpanded ? (
+            <Button
+              variant="outline"
+              className="h-8 w-8 p-0 pagination-button rounded-lg"
+              onClick={() => setSearchExpanded(true)}
+              data-testid="search-button"
+            >
+              <Search className="w-4 h-4 text-gray-100" />
+            </Button>
+          ) : (
+            <div className="relative group flex-1 max-w-md transition-all duration-500 ease-out animate-in fade-in slide-in-from-right-10">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-4 text-gray-400 dark:text-gray-400 group-hover:text-gray-300 dark:group-hover:text-gray-300 transition-colors duration-200" />
+              <Input
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => onSearchTermChange?.(e.target.value)}
+                className="pl-7 pr-7 h-8 bg-transparent text-[rgb(229,228,226)] dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 border border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500 hover:bg-transparent dark:hover:bg-gray-800/30 rounded-md focus-visible:outline-none focus-visible:ring-0 focus-visible:border-gray-300 dark:focus-visible:border-gray-600 disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 text-sm"
+                data-testid="search-input"
+                autoFocus
+                onBlur={() => {
+                  if (!searchTerm) {
+                    setTimeout(() => setSearchExpanded(false), 150);
+                  }
+                }}
+              />
+              {searchTerm && (
+                <button
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    onSearchTermChange?.('');
+                    setSearchExpanded(false);
+                  }}
+                  className="absolute right-1 top-1/2 transform -translate-y-1/2 p-0.5 w-5 h-5 rounded-full hover:bg-muted/50 transition-all duration-200 flex items-center justify-center animate-in fade-in zoom-in-50"
+                  data-testid="clear-search"
+                  aria-label="Clear search"
+                >
+                  <X className="w-2.5 h-2.5 text-muted-foreground hover:text-foreground transition-colors duration-150" />
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
       {/* Active Filters Display */}
@@ -1138,7 +1162,7 @@ export function DataTable({
             {/* Scrollable Container for Header, Body, Footer */}
             <div className="overflow-x-auto overflow-y-auto max-h-[700px]">
               <Table className="min-w-full">
-                <TableHeader className="sticky top-0 z-20 [&_tr]:border-b [&_tr]:border-gray-600 dark:[&_tr]:border-blue-500/20 shadow-[inset_0_-2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_-2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
+                <TableHeader className="sticky top-0 z-20 [&_tr]:border-b [&_tr]:border-transparent shadow-[inset_0_-2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_-2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
               <Droppable
                 droppableId="columns"
                 direction="horizontal"
@@ -1751,7 +1775,7 @@ export function DataTable({
             
             {/* Table Footer */}
             <tfoot className="sticky bottom-0 z-20 shadow-[inset_0_2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
-              <TableRow className="border-t border-gray-600 dark:border-blue-500/20">
+              <TableRow className="border-t border-transparent">
                 {visibleColumns.map((column, index) => (
                   <TableCell
                     key={column.id}
@@ -1903,7 +1927,7 @@ export function DataTable({
                           size="xs"
                           onClick={() => goToPage(pageNum)}
                           className={`pagination-button page-number min-w-[24px] h-6 text-[9px] ${
-                            isCurrentPage ? "active" : ""
+                            isCurrentPage ? "active bg-gray-700 dark:bg-gray-800 text-gray-400 dark:text-gray-400" : ""
                           }`}
                           data-testid={`button-page-${pageNum}`}
                         >
