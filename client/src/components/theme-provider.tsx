@@ -26,10 +26,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     
     localStorage.setItem('theme', theme);
     
-    // Update browser tab/address bar color
+    // Update browser tab/address bar color with premium colors
     const themeColors = {
-      dark: '#000000',  // Hitam untuk dark mode
-      light: '#ffffff'  // Putih untuk light mode
+      dark: '#0f172a',  // Deep navy blue untuk dark mode
+      light: '#fffef7'  // Warm white untuk light mode
     };
     
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');

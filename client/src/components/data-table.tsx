@@ -1667,16 +1667,12 @@ export function DataTable({
                                                 const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
                                                 const isAlt1Day = daysSinceBase % 2 === 1;
                                                 return (
-                                                  <>
-                                                    <div className={`w-4 h-4 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold ${!isAlt1Day ? 'opacity-60' : ''}`}>
-                                                      {isAlt1Day ? '✓' : '✗'}
-                                                    </div>
-                                                    <span className={`text-xs font-medium ${isAlt1Day ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-400 dark:text-gray-500'}`}>
-                                                      Alt 1 (Even)
-                                                    </span>
-                                                  </>
+                                                  <div className={`w-4 h-4 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold ${!isAlt1Day ? 'opacity-60' : ''}`}>
+                                                    {isAlt1Day ? '✓' : '✗'}
+                                                  </div>
                                                 );
                                               })()}
+                                              <span className="text-yellow-600 dark:text-yellow-400 text-xs font-medium">Alt 1 (Even)</span>
                                             </div>
                                           </SelectItem>
                                           <SelectItem value="alt2">
@@ -1688,16 +1684,12 @@ export function DataTable({
                                                 const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
                                                 const isAlt2Day = daysSinceBase % 2 === 0;
                                                 return (
-                                                  <>
-                                                    <div className={`w-4 h-4 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold ${!isAlt2Day ? 'opacity-60' : ''}`}>
-                                                      {isAlt2Day ? '✓' : '✗'}
-                                                    </div>
-                                                    <span className={`text-xs font-medium ${isAlt2Day ? 'text-yellow-600 dark:text-yellow-400' : 'text-gray-400 dark:text-gray-500'}`}>
-                                                      Alt 2 (Odd)
-                                                    </span>
-                                                  </>
+                                                  <div className={`w-4 h-4 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold ${!isAlt2Day ? 'opacity-60' : ''}`}>
+                                                    {isAlt2Day ? '✓' : '✗'}
+                                                  </div>
                                                 );
                                               })()}
+                                              <span className="text-yellow-600 dark:text-yellow-400 text-xs font-medium">Alt 2 (Odd)</span>
                                             </div>
                                           </SelectItem>
                                           <SelectItem value="inactive">

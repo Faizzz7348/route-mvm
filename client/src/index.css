@@ -179,29 +179,29 @@ textarea {
   --popover-foreground: hsl(0, 0%, 98%);
   --primary: hsl(217, 91%, 60%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(0, 0%, 10%);
-  --secondary-foreground: hsl(0, 0%, 95%);
-  --muted: hsl(0, 0%, 15%);
-  --muted-foreground: hsl(0, 0%, 65%);
-  --accent: hsl(0, 0%, 18%);
-  --accent-foreground: hsl(0, 0%, 95%);
-  --destructive: hsl(0, 70%, 50%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(0, 0%, 20%);
-  --input: hsl(0, 0%, 10%);
+  --secondary: hsl(217, 30%, 20%);
+  --secondary-foreground: hsl(210, 40%, 96%);
+  --muted: hsl(217, 30%, 22%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --accent: hsl(217, 30%, 25%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(217, 30%, 25%);
+  --input: hsl(217, 30%, 18%);
   --ring: hsl(217, 91%, 60%);
   --chart-1: hsl(217, 91%, 60%);
-  --chart-2: hsl(199, 89%, 48%);
-  --chart-3: hsl(173, 58%, 39%);
-  --chart-4: hsl(142, 71%, 45%);
-  --chart-5: hsl(79, 70%, 43%);
-  --sidebar: hsl(0, 0%, 2%);
-  --sidebar-foreground: hsl(0, 0%, 98%);
+  --chart-2: hsl(212, 95%, 51%);
+  --chart-3: hsl(186, 100%, 42%);
+  --chart-4: hsl(142, 76%, 36%);
+  --chart-5: hsl(47, 96%, 53%);
+  --sidebar: hsl(222, 47%, 9%);
+  --sidebar-foreground: hsl(210, 40%, 98%);
   --sidebar-primary: hsl(217, 91%, 60%);
   --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(0, 0%, 12%);
-  --sidebar-accent-foreground: hsl(0, 0%, 95%);
-  --sidebar-border: hsl(0, 0%, 15%);
+  --sidebar-accent: hsl(217, 30%, 18%);
+  --sidebar-accent-foreground: hsl(210, 40%, 98%);
+  --sidebar-border: hsl(217, 30%, 22%);
   --sidebar-ring: hsl(217, 91%, 60%);
   
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -294,32 +294,33 @@ textarea {
 
 /* Keep dark class for backward compatibility */
 .dark {
-  --background: hsl(0, 0%, 0%);
-  --foreground: hsl(0, 0%, 100%);
-  --card: hsl(0, 0%, 6%);
-  --card-foreground: hsl(0, 0%, 98%);
-  --popover: hsl(0, 0%, 6%);
-  --popover-foreground: hsl(0, 0%, 98%);
+  /* Premium Dark Theme - Deep Navy */
+  --background: hsl(222, 47%, 11%);
+  --foreground: hsl(210, 40%, 98%);
+  --card: hsl(222, 47%, 14%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --popover: hsl(222, 47%, 14%);
+  --popover-foreground: hsl(210, 40%, 98%);
   --primary: hsl(217, 91%, 60%);
   --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(0, 0%, 10%);
-  --secondary-foreground: hsl(0, 0%, 95%);
-  --muted: hsl(0, 0%, 15%);
-  --muted-foreground: hsl(0, 0%, 65%);
-  --accent: hsl(0, 0%, 18%);
-  --accent-foreground: hsl(0, 0%, 95%);
-  --destructive: hsl(0, 70%, 50%);
-  --destructive-foreground: hsl(0, 0%, 98%);
-  --border: hsl(0, 0%, 20%);
-  --input: hsl(0, 0%, 10%);
+  --secondary: hsl(217, 30%, 20%);
+  --secondary-foreground: hsl(210, 40%, 96%);
+  --muted: hsl(217, 30%, 22%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --accent: hsl(217, 30%, 25%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(217, 30%, 25%);
+  --input: hsl(217, 30%, 18%);
   --ring: hsl(217, 91%, 60%);
-  --sidebar: hsl(0, 0%, 2%);
-  --sidebar-foreground: hsl(0, 0%, 98%);
+  --sidebar: hsl(222, 47%, 9%);
+  --sidebar-foreground: hsl(210, 40%, 98%);
   --sidebar-primary: hsl(217, 91%, 60%);
   --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(0, 0%, 12%);
-  --sidebar-accent-foreground: hsl(0, 0%, 95%);
-  --sidebar-border: hsl(0, 0%, 15%);
+  --sidebar-accent: hsl(217, 30%, 18%);
+  --sidebar-accent-foreground: hsl(210, 40%, 98%);
+  --sidebar-border: hsl(217, 30%, 22%);
   --sidebar-ring: hsl(217, 91%, 60%);
 }
 
@@ -338,16 +339,11 @@ textarea {
     background-color: var(--background);
   }
 
-  /* Smooth transitions for interactive elements (opt-in) */
-  button,
-  a,
-  input,
-  select,
-  textarea,
-  [role="button"],
-  [role="link"],
+  /* Lightweight transitions for interactive elements only */
+  button:not(.no-transition),
+  a:not(.no-transition),
   .transition-smooth {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.15s ease, transform 0.15s ease;
   }
 
   /* iOS Traditional Glass - Light Mode */
