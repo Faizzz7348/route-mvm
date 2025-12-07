@@ -801,9 +801,9 @@ export function DataTable({
                 data-testid="sort-trigger"
               >
                 {sortState ? (
-                  sortState.direction === 'asc' ? <ArrowUp className="w-4 h-4 text-gray-400 dark:text-current" /> : <ArrowDown className="w-4 h-4 text-gray-400 dark:text-current" />
+                  sortState.direction === 'asc' ? <ArrowUp className="w-4 h-4 text-gray-100" /> : <ArrowDown className="w-4 h-4 text-gray-100" />
                 ) : (
-                  <ArrowUpDown className="w-4 h-4 opacity-50 text-gray-400 dark:text-current" />
+                  <ArrowUpDown className="w-4 h-4 opacity-50 text-gray-100" />
                 )}
               </Button>
             </PopoverTrigger>
@@ -1750,8 +1750,8 @@ export function DataTable({
             </Droppable>
             
             {/* Table Footer */}
-            <tfoot className="sticky bottom-0 z-20 shadow-[inset_0_2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] bg-gray-300 dark:bg-gray-800">
-              <TableRow className="border-t border-border dark:border-blue-500/20">
+            <tfoot className="sticky bottom-0 z-20 shadow-[inset_0_2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
+              <TableRow className="border-t border-gray-600 dark:border-blue-500/20">
                 {visibleColumns.map((column, index) => (
                   <TableCell
                     key={column.id}
@@ -1803,13 +1803,13 @@ export function DataTable({
 
           {/* Pagination Controls */}
           {!disablePagination && (
-            <div className="flex flex-col items-center justify-center gap-1.5 px-4 py-3 border-t border-gray-400 dark:border-t-[#36454F] bg-gray-400 dark:bg-transparent shadow-sm transition-all duration-500">
+            <div className="flex flex-col items-center justify-center gap-1.5 px-4 py-3 border-t border-gray-600 dark:border-gray-800/60 bg-gray-800 dark:bg-gray-950/50 shadow-sm transition-all duration-500">
               
               <div className="flex items-center justify-between gap-1 w-full">
                 {/* Left: Entries per page selector with showing text */}
                 <div className="flex items-center gap-1.5 text-[9px] font-medium text-muted-foreground flex-shrink-0">
                   <Select value={String(pageSize)} onValueChange={handlePageSizeChange}>
-                    <SelectTrigger className="h-5 w-5 p-0 text-[8px] pagination-button rounded-lg [&>svg]:hidden flex items-center justify-center flex-shrink-0">
+                    <SelectTrigger className="h-5 w-5 p-0 text-[8px] pagination-button rounded-lg [&>svg]:hidden flex items-center justify-center flex-shrink-0 text-gray-100 dark:text-gray-100 font-semibold">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>

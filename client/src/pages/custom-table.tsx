@@ -248,6 +248,53 @@ export default function CustomTableView() {
   const [isIntroLoading, setIsIntroLoading] = React.useState(false);
 
   React.useEffect(() => {
+    // Check if this is first app launch or returning after long time
+    const hasLoadedBefore = sessionStorage.getItem('routevm_loaded');
+    const lastVisitTime = sessionStorage.getItem('routevm_last_visit');
+    const now = Date.now();
+    
+    // Consider "long absence" as 5 minutes (300000ms)
+    const LONG_ABSENCE_TIME = 5 * 60 * 1000;
+    const isLongAbsence = lastVisitTime && (now - parseInt(lastVisitTime)) > LONG_ABSENCE_TIME;
+    
+    if (hasLoadedBefore && !isLongAbsence) {
+      // Navigation loading or quick return - fast 1 second
+      setIsIntroLoading(false);
+      const timer = setTimeout(() => {
+        setMinLoadingComplete(true);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else {
+      // Intro loading - full 5 seconds with fancy animation (first launch or after long absence)
+      setIsIntroLoading(true);
+      const timer = setTimeout(() => {
+        setMinLoadingComplete(true);
+        sessionStorage.setItem('routevm_loaded', 'true');
+        sessionStorage.setItem('routevm_last_visit', now.toString());
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Update last visit time on user activity
+  React.useEffect(() => {
+    const updateLastVisit = () => {
+      sessionStorage.setItem('routevm_last_visit', Date.now().toString());
+    };
+
+    const events = ['mousedown', 'keydown', 'scroll', 'touchstart'];
+    events.forEach(event => {
+      window.addEventListener(event, updateLastVisit, { passive: true });
+    });
+
+    return () => {
+      events.forEach(event => {
+        window.removeEventListener(event, updateLastVisit);
+      });
+    };
+  }, []);
+
+  React.useEffect(() => {
     // Check if this is first app launch or navigation
     const hasLoadedBefore = sessionStorage.getItem('routevm_loaded');
     

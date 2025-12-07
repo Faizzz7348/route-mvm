@@ -1037,46 +1037,50 @@ export default function TablePage() {
   const [isIntroLoading, setIsIntroLoading] = React.useState(false);
 
   React.useEffect(() => {
-    // Check if this is first app launch or navigation
+    // Check if this is first app launch or returning after long time
     const hasLoadedBefore = sessionStorage.getItem('routevm_loaded');
+    const lastVisitTime = sessionStorage.getItem('routevm_last_visit');
+    const now = Date.now();
     
-    if (hasLoadedBefore) {
-      // Navigation loading - fast 1 second
+    // Consider "long absence" as 5 minutes (300000ms)
+    const LONG_ABSENCE_TIME = 5 * 60 * 1000;
+    const isLongAbsence = lastVisitTime && (now - parseInt(lastVisitTime)) > LONG_ABSENCE_TIME;
+    
+    if (hasLoadedBefore && !isLongAbsence) {
+      // Navigation loading or quick return - fast 1 second
       setIsIntroLoading(false);
       const timer = setTimeout(() => {
         setMinLoadingComplete(true);
       }, 1000);
       return () => clearTimeout(timer);
     } else {
-      // Intro loading - full 5 seconds with fancy animation
+      // Intro loading - full 5 seconds with fancy animation (first launch or after long absence)
       setIsIntroLoading(true);
       const timer = setTimeout(() => {
         setMinLoadingComplete(true);
         sessionStorage.setItem('routevm_loaded', 'true');
+        sessionStorage.setItem('routevm_last_visit', now.toString());
       }, 5000);
       return () => clearTimeout(timer);
     }
   }, []);
 
-  // Clear sessionStorage when user leaves (tab close, minimize, switch app, refresh)
+  // Update last visit time on user activity (but don't clear the loaded flag)
   React.useEffect(() => {
-    const handleBeforeUnload = () => {
-      sessionStorage.removeItem('routevm_loaded');
+    const updateLastVisit = () => {
+      sessionStorage.setItem('routevm_last_visit', Date.now().toString());
     };
 
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        // User switched away from tab or minimized
-        sessionStorage.removeItem('routevm_loaded');
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    // Update on any user interaction
+    const events = ['mousedown', 'keydown', 'scroll', 'touchstart'];
+    events.forEach(event => {
+      window.addEventListener(event, updateLastVisit, { passive: true });
+    });
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      events.forEach(event => {
+        window.removeEventListener(event, updateLastVisit);
+      });
     };
   }, []);
 

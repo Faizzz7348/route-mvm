@@ -799,14 +799,12 @@ html.dark tfoot tr th .footer-total-blue {
   overflow: hidden;
   background: transparent;
   border-color: rgb(200, 200, 200);
-  color: rgb(0, 0, 0);
   font-weight: 500;
 }
 
 .dark .pagination-button {
   background: transparent;
   border-color: rgba(59, 130, 246, 0.4);
-  color: rgb(147, 197, 253);
 }
 
 .pagination-button.page-number {
