@@ -1632,7 +1632,7 @@ export function DataTable({
                                         }
                                       >
                                         <SelectTrigger 
-                                          className={`h-8 w-8 text-xs border-transparent bg-transparent p-0 ${
+                                          className={`h-8 w-8 text-xs border-transparent bg-transparent p-0 [&>svg]:hidden ${
                                             (() => {
                                               // Apply 3-color styling ONLY for shared view or edit mode
                                               if (isSharedView || editMode) {
@@ -1682,7 +1682,14 @@ export function DataTable({
                                               <span className="text-green-600 dark:text-green-400 text-xs font-medium">Daily</span>
                                             </div>
                                           </SelectItem>
-                                          <SelectItem value="alt1">
+                                          <SelectItem value="alt1" disabled={(() => {
+                                            const now = new Date();
+                                            const baseDate = new Date('2025-12-02');
+                                            const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                                            const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
+                                            const isAlt1Day = daysSinceBase % 2 === 1;
+                                            return !isAlt1Day;
+                                          })()}>
                                             <div className="flex items-center gap-2">
                                               {(() => {
                                                 const now = new Date();
@@ -1691,15 +1698,31 @@ export function DataTable({
                                                 const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
                                                 const isAlt1Day = daysSinceBase % 2 === 1;
                                                 return (
-                                                  <div className={`w-4 h-4 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold ${!isAlt1Day ? 'opacity-60' : ''}`}>
+                                                  <div className={`w-4 h-4 rounded-full flex items-center justify-center text-white text-xs font-bold ${
+                                                    isAlt1Day ? 'bg-yellow-500' : 'bg-gray-400 dark:bg-gray-600 opacity-50'
+                                                  }`}>
                                                     {isAlt1Day ? '✓' : '✗'}
                                                   </div>
                                                 );
                                               })()}
-                                              <span className="text-yellow-600 dark:text-yellow-400 text-xs font-medium">Alt 1 (Even)</span>
+                                              <span className={(() => {
+                                                const now = new Date();
+                                                const baseDate = new Date('2025-12-02');
+                                                const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                                                const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
+                                                const isAlt1Day = daysSinceBase % 2 === 1;
+                                                return isAlt1Day ? 'text-yellow-600 dark:text-yellow-400 text-xs font-medium' : 'text-gray-400 dark:text-gray-500 text-xs font-medium';
+                                              })()}>Alt 1 (Even)</span>
                                             </div>
                                           </SelectItem>
-                                          <SelectItem value="alt2">
+                                          <SelectItem value="alt2" disabled={(() => {
+                                            const now = new Date();
+                                            const baseDate = new Date('2025-12-02');
+                                            const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                                            const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
+                                            const isAlt2Day = daysSinceBase % 2 === 0;
+                                            return !isAlt2Day;
+                                          })()}>
                                             <div className="flex items-center gap-2">
                                               {(() => {
                                                 const now = new Date();
@@ -1708,12 +1731,21 @@ export function DataTable({
                                                 const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
                                                 const isAlt2Day = daysSinceBase % 2 === 0;
                                                 return (
-                                                  <div className={`w-4 h-4 rounded-full bg-yellow-500 flex items-center justify-center text-white text-xs font-bold ${!isAlt2Day ? 'opacity-60' : ''}`}>
+                                                  <div className={`w-4 h-4 rounded-full flex items-center justify-center text-white text-xs font-bold ${
+                                                    isAlt2Day ? 'bg-yellow-500' : 'bg-gray-400 dark:bg-gray-600 opacity-50'
+                                                  }`}>
                                                     {isAlt2Day ? '✓' : '✗'}
                                                   </div>
                                                 );
                                               })()}
-                                              <span className="text-yellow-600 dark:text-yellow-400 text-xs font-medium">Alt 2 (Odd)</span>
+                                              <span className={(() => {
+                                                const now = new Date();
+                                                const baseDate = new Date('2025-12-02');
+                                                const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                                                const daysSinceBase = Math.floor((currentDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
+                                                const isAlt2Day = daysSinceBase % 2 === 0;
+                                                return isAlt2Day ? 'text-yellow-600 dark:text-yellow-400 text-xs font-medium' : 'text-gray-400 dark:text-gray-500 text-xs font-medium';
+                                              })()}>Alt 2 (Odd)</span>
                                             </div>
                                           </SelectItem>
                                           <SelectItem value="inactive">
@@ -1768,6 +1800,46 @@ export function DataTable({
                           )}
                         </Draggable>
                       ))}
+                  {/* Empty State - No results found */}
+                  {!isLoading && paginatedRows.length === 0 && searchTerm && (
+                    <TableRow>
+                      <TableCell 
+                        colSpan={visibleColumns.length + 1} 
+                        className="py-12 text-center"
+                      >
+                        <div className="flex flex-col items-center justify-center gap-3">
+                          {/* Animated dots */}
+                          <div className="flex items-center gap-2">
+                            <Search className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                            <span className="text-gray-600 dark:text-gray-400 font-medium text-sm">
+                              Searching for "{searchTerm}" not found
+                            </span>
+                            <div className="flex gap-1">
+                              <span className="inline-block w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '0ms', animationDuration: '1s'}}></span>
+                              <span className="inline-block w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '150ms', animationDuration: '1s'}}></span>
+                              <span className="inline-block w-1.5 h-1.5 bg-gray-400 dark:bg-gray-500 rounded-full animate-bounce" style={{animationDelay: '300ms', animationDuration: '1s'}}></span>
+                            </div>
+                          </div>
+                          <p className="text-xs text-muted-foreground">Try adjusting your search terms or filters</p>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
+                  {/* Empty State - No data at all */}
+                  {!isLoading && paginatedRows.length === 0 && !searchTerm && (filterValue.length > 0 || deliveryFilterValue.length > 0) && (
+                    <TableRow>
+                      <TableCell 
+                        colSpan={visibleColumns.length + 1} 
+                        className="py-12 text-center"
+                      >
+                        <div className="flex flex-col items-center justify-center gap-3">
+                          <Filter className="w-8 h-8 text-gray-400 dark:text-gray-500" />
+                          <p className="text-gray-600 dark:text-gray-400 font-medium">No results match your filters</p>
+                          <p className="text-xs text-muted-foreground">Try adjusting or clearing your filters</p>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  )}
                   {provided.placeholder}
                 </TableBody>
               )}
