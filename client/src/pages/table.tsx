@@ -1171,7 +1171,7 @@ export default function TablePage() {
                 opts={{ loop: sortedPages.length > 1 }}
                 setApi={setCarouselApi}
               >
-                <div className="overflow-hidden rounded-xl border border-blue-200 dark:border-blue-500/30 ocean:border-cyan-500/40 bg-gradient-to-r from-blue-50/80 via-gray-100/40 to-white/80 dark:from-blue-950/40 dark:to-gray-900/40 ocean:from-cyan-950/50 ocean:to-blue-950/50 backdrop-blur-sm shadow-lg transition-all duration-500">
+                <div className="overflow-hidden rounded-xl border border-blue-200 dark:border-blue-500/30 ocean:border-cyan-500/40 bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-black backdrop-blur-sm shadow-lg transition-all duration-500">
                   <CarouselContent>
                   {sortedPages.map((page, index) => {
                     const isCurrentSlide = index === currentSlideIndex;
@@ -1367,7 +1367,7 @@ export default function TablePage() {
                 )}
               </Carousel>
             ) : (
-              <div className="overflow-hidden rounded-xl border border-blue-200 dark:border-blue-500/30 bg-gradient-to-r from-blue-50/80 to-white/80 dark:from-blue-950/40 dark:to-gray-900/40 backdrop-blur-sm shadow-lg transition-all duration-500 px-6 py-4 text-center text-gray-500">
+              <div className="overflow-hidden rounded-xl border border-blue-200 dark:border-blue-500/30 bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-black backdrop-blur-sm shadow-lg transition-all duration-500 px-6 py-4 text-center text-gray-500">
                 <p>No pages available</p>
               </div>
             )}

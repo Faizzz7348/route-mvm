@@ -72,7 +72,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
       {/* Content fade overlay - hides content when scrolling near nav */}
       <div className="fixed top-0 left-0 right-0 h-24 z-40 pointer-events-none bg-gradient-to-b from-background via-background/80 to-transparent" />
       
-      <nav ref={menuRef} className="fixed top-0 left-0 right-0 z-50 w-full border-b-2 border-blue-500/50 dark:border-blue-400/50 bg-gray-800 dark:bg-gray-900 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm shadow-blue-500/20">
+      <nav ref={menuRef} className="fixed top-0 left-0 right-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
         <div className="container mx-auto px-2 md:px-4">
         <div className="flex h-16 items-center justify-between text-[12px]">
           {/* Logo/Brand */}
@@ -86,10 +86,10 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
                 />
               </div>
               <div className="flex flex-col gap-0.5 leading-tight">
-                <span className="font-bold bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 dark:from-gray-100 dark:via-gray-200 dark:to-gray-100 bg-clip-text text-transparent leading-none tracking-tight transition-all" style={{ fontSize: '13px', letterSpacing: '-0.02em' }}>
+                <span className="font-bold text-gray-900 dark:text-gray-100 leading-none tracking-tight transition-all" style={{ fontSize: '13px', letterSpacing: '-0.02em' }}>
                   {editMode ? "Edit Mode" : "Route Manager"}
                 </span>
-                <span className="text-gray-500 dark:text-gray-400 leading-none font-medium" style={{ fontSize: '10px', letterSpacing: '-0.01em' }}>
+                <span className="text-gray-600 dark:text-gray-400 leading-none font-medium" style={{ fontSize: '10px', letterSpacing: '-0.01em' }}>
                   Data Management
                 </span>
               </div>
@@ -101,28 +101,28 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
             variant="outline"
             size="sm"
             onClick={() => setMenuOpen(!menuOpen)}
-            className="relative bg-gray-200/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/60 dark:border-gray-700/50 shadow-sm hover:shadow-md hover:border-gray-300/70 dark:hover:border-gray-600/60 hover:bg-gray-300 dark:hover:bg-gray-900 h-10 px-4 rounded-[14px] transition-all duration-300 ease-out hover:scale-105 active:scale-95 group"
+            className="relative bg-white dark:bg-gray-950 backdrop-blur-xl border border-gray-300 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 h-10 px-4 rounded-[14px] transition-all duration-300 ease-out hover:scale-105 active:scale-95 group"
             data-testid="button-main-menu"
             title="Menu"
           >
-            <LayoutGrid className="w-4 h-4 text-gray-700 dark:text-gray-200 transition-transform duration-200 group-hover:scale-110" />
-            <span className="hidden md:inline ml-2 text-xs font-semibold text-gray-700 dark:text-gray-200">Menu</span>
+            <LayoutGrid className="w-4 h-4 text-gray-900 dark:text-gray-100 transition-transform duration-200 group-hover:scale-110" />
+            <span className="hidden md:inline ml-2 text-xs font-semibold text-gray-900 dark:text-gray-100">Menu</span>
           </Button>
         </div>
         </div>
 
         {/* Dropdown Menu */}
-        <div className={`absolute top-full right-6 mt-3 w-56 bg-gray-200 dark:bg-black/95 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-xl p-2 shadow-md max-h-[500px] overflow-y-auto transition-all duration-300 ease-out ${
+        <div className={`absolute top-full right-6 mt-3 w-56 bg-white dark:bg-gray-950 backdrop-blur-xl border border-gray-200 dark:border-gray-800 rounded-xl p-2 shadow-md max-h-[500px] overflow-y-auto transition-all duration-300 ease-out ${
           menuOpen 
             ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
         }`}>
           {/* Theme Switcher */}
           <div className="px-4 py-2">
-            <div className="flex gap-2 p-1 bg-black/5 dark:bg-white/5 rounded-xl border border-black/10 dark:border-white/10">
+            <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
               <button
                 onClick={() => onSetTheme?.('dark')}
-                className={`flex-1 p-2 rounded-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 hover:scale-105 active:scale-95 ${theme === 'dark' ? 'bg-black/20 dark:bg-white/20 text-black dark:text-white' : 'text-black/60 dark:text-white/60 hover:bg-black/10 dark:hover:bg-white/10'}`}
+                className={`flex-1 p-2 rounded-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 hover:scale-105 active:scale-95 ${theme === 'dark' ? 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
                 title="Dark Mode"
               >
                 <Moon className="w-4 h-4" />
@@ -130,7 +130,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
               </button>
               <button
                 onClick={() => onSetTheme?.('light')}
-                className={`flex-1 p-2 rounded-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 hover:scale-105 active:scale-95 ${theme === 'light' ? 'bg-black/20 dark:bg-white/20 text-black dark:text-white' : 'text-black/60 dark:text-white/60 hover:bg-black/10 dark:hover:bg-white/10'}`}
+                className={`flex-1 p-2 rounded-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 hover:scale-105 active:scale-95 ${theme === 'light' ? 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
                 title="Light Mode"
               >
                 <Sun className="w-4 h-4" />
@@ -139,22 +139,22 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
             </div>
           </div>
 
-          <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
+          <div className="h-px bg-gray-200 dark:bg-gray-800 my-1" />
 
           {/* Primary Actions */}
           {editMode ? (
             <>
               <button
                 onClick={() => { onSaveData?.(); setMenuOpen(false); }}
-                className="w-full text-left px-4 py-3 text-green-600 dark:text-green-400 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full text-left px-4 py-3 text-green-600 dark:text-green-400 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Save className="w-4 h-4" />
                 Save Changes
               </button>
-              <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
+              <div className="h-px bg-gray-200 dark:bg-gray-800 my-1" />
               <button
                 onClick={() => { onEditModeRequest?.(); setMenuOpen(false); }}
-                className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <DoorOpen className="w-4 h-4" />
                 Exit Edit Mode
@@ -163,19 +163,19 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
           ) : (
             <button
               onClick={() => { onEditModeRequest?.(); setMenuOpen(false); }}
-              className="w-full text-left px-4 py-3 text-blue-600 dark:text-blue-400 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full text-left px-4 py-3 text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
             >
               <DoorOpen className="w-4 h-4" />
               Enter Edit Mode
             </button>
           )}
 
-          <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
+          <div className="h-px bg-gray-200 dark:bg-gray-800 my-1" />
 
           {/* Navigation Links */}
           <button
             onClick={() => { navigate('/custom-tables'); setMenuOpen(false); }}
-            className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
           >
             <ListChecks className="w-4 h-4" />
             All Custom Tables
@@ -183,7 +183,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
 
           <button
             onClick={() => { onSavedLinks?.(); setMenuOpen(false); }}
-            className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
           >
             <Bookmark className="w-4 h-4" />
             Saved Links
@@ -192,11 +192,11 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
           {/* Edit Actions */}
           {editMode && (
             <>
-              <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
+              <div className="h-px bg-gray-200 dark:bg-gray-800 my-1" />
               
               <button
                 onClick={() => { onAddRow?.(); setMenuOpen(false); }}
-                className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Rows className="w-4 h-4" />
                 Add Row
@@ -209,7 +209,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
                     if (addColumnButton) addColumnButton.click();
                     setMenuOpen(false);
                   }}
-                  className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Plus className="w-4 h-4" />
                   Add Column
@@ -218,7 +218,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
 
               <button
                 onClick={() => { onShowCustomization?.(); setMenuOpen(false); }}
-                className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Layout className="w-4 h-4" />
                 Customize Columns
@@ -226,7 +226,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
 
               <button
                 onClick={() => { onBulkColorEdit?.(); setMenuOpen(false); }}
-                className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Palette className="w-4 h-4" />
                 Bulk Color Edit
@@ -235,7 +235,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
               {onOptimizeRoute && (
                 <button
                   onClick={() => { onOptimizeRoute(); setMenuOpen(false); }}
-                  className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <RouteIcon className="w-4 h-4" />
                   Optimize Route
@@ -245,7 +245,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
               {onCalculateTolls && (
                 <button
                   onClick={() => { onCalculateTolls(); setMenuOpen(false); }}
-                  className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Receipt className="w-4 h-4" />
                   Calculate Tolls
@@ -255,7 +255,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
               {onGenerateTng && (
                 <button
                   onClick={() => { onGenerateTng(); setMenuOpen(false); }}
-                  className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Sparkles className="w-4 h-4" />
                   Generate TNG
@@ -265,7 +265,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
               {onSaveLayout && (
                 <button
                   onClick={() => { onSaveLayout(); setMenuOpen(false); }}
-                  className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Layout className="w-4 h-4" />
                   Save Layout
@@ -274,11 +274,11 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
             </>
           )}
 
-          <div className="h-px bg-black/10 dark:bg-white/10 my-1" />
+          <div className="h-px bg-gray-200 dark:bg-gray-800 my-1" />
 
           <button
             onClick={() => { onShowZoom?.(); setMenuOpen(false); }}
-            className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
           >
             <ZoomIn className="w-4 h-4" />
             Zoom Control
@@ -286,7 +286,7 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
 
           <button
             onClick={() => { onShowHelp?.(); setMenuOpen(false); }}
-            className="w-full text-left px-4 py-3 text-black/90 dark:text-white/90 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
           >
             <BookOpen className="w-4 h-4" />
             Help

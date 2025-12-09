@@ -126,7 +126,7 @@ export function Footer({ editMode = false }: FooterProps) {
   return (
     <>
       <footer 
-        className={`fixed bottom-0 left-0 right-0 z-40 w-full border-t-2 border-blue-500/50 dark:border-blue-400/50 bg-gray-800 dark:bg-gray-900 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm shadow-blue-500/20 transition-all duration-500 ease-out ${
+        className={`fixed bottom-0 left-0 right-0 z-40 w-full border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm transition-all duration-500 ease-out ${
           isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
         }`}
       >
@@ -137,7 +137,7 @@ export function Footer({ editMode = false }: FooterProps) {
             {/* Main Footer Content */}
             <div className="flex items-center justify-center">
               {/* Footer Text */}
-              <div className="text-[10px] text-slate-600 dark:text-slate-400 text-center">
+              <div className="text-[10px] text-gray-600 dark:text-gray-400 text-center">
                 <div className="flex items-center gap-1.5">
                   {companyUrl ? (
                     <a
