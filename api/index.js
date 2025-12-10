@@ -1574,9 +1574,109 @@ async function calculateRoutesForDestinations(destinations) {
   return { distances, tollPrices };
 }
 
+// server/auth.ts
+import bcrypt from "bcrypt";
+var rateLimitStore = /* @__PURE__ */ new Map();
+var MAX_ATTEMPTS = 5;
+var WINDOW_MS = 15 * 60 * 1e3;
+var BLOCK_DURATION_MS = 30 * 60 * 1e3;
+function cleanupRateLimitStore() {
+  const now = Date.now();
+  rateLimitStore.forEach((entry, key) => {
+    if (entry.blockedUntil && entry.blockedUntil < now) {
+      rateLimitStore.delete(key);
+    } else if (now - entry.lastAttempt > WINDOW_MS) {
+      rateLimitStore.delete(key);
+    }
+  });
+}
+setInterval(cleanupRateLimitStore, 10 * 60 * 1e3);
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const entry = rateLimitStore.get(ip);
+  if (!entry) {
+    return { allowed: true };
+  }
+  if (entry.blockedUntil && entry.blockedUntil > now) {
+    const retryAfter = Math.ceil((entry.blockedUntil - now) / 1e3);
+    return { allowed: false, retryAfter };
+  }
+  if (now - entry.lastAttempt > WINDOW_MS) {
+    rateLimitStore.delete(ip);
+    return { allowed: true };
+  }
+  if (entry.attempts >= MAX_ATTEMPTS) {
+    entry.blockedUntil = now + BLOCK_DURATION_MS;
+    const retryAfter = Math.ceil(BLOCK_DURATION_MS / 1e3);
+    return { allowed: false, retryAfter };
+  }
+  return { allowed: true };
+}
+function recordFailedAttempt(ip) {
+  const now = Date.now();
+  const entry = rateLimitStore.get(ip);
+  if (!entry) {
+    rateLimitStore.set(ip, {
+      attempts: 1,
+      lastAttempt: now
+    });
+  } else {
+    entry.attempts++;
+    entry.lastAttempt = now;
+  }
+}
+function resetRateLimit(ip) {
+  rateLimitStore.delete(ip);
+}
+async function verifyPassword(password) {
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+  if (!passwordHash) {
+    console.error("ADMIN_PASSWORD_HASH not configured in environment");
+    return false;
+  }
+  try {
+    if (process.env.NODE_ENV === "development" && process.env.ADMIN_PASSWORD) {
+      if (password === process.env.ADMIN_PASSWORD) {
+        return true;
+      }
+    }
+    return await bcrypt.compare(password, passwordHash);
+  } catch (error) {
+    console.error("Password verification error:", error);
+    return false;
+  }
+}
+
 // server/routes.ts
 var uuidSchema = z3.string().uuid();
 async function registerRoutes(app2) {
+  app2.post("/api/auth/verify", async (req, res) => {
+    const ip = req.ip || req.socket.remoteAddress || "unknown";
+    try {
+      const rateLimit = checkRateLimit(ip);
+      if (!rateLimit.allowed) {
+        return res.status(429).json({
+          message: "Too many failed attempts. Please try again later.",
+          retryAfter: rateLimit.retryAfter
+        });
+      }
+      const { password } = req.body;
+      if (!password) {
+        return res.status(400).json({ message: "Password is required" });
+      }
+      const isValid = await verifyPassword(password);
+      if (isValid) {
+        resetRateLimit(ip);
+        return res.json({ success: true, message: "Authentication successful" });
+      } else {
+        recordFailedAttempt(ip);
+        return res.status(401).json({ success: false, message: "Incorrect password" });
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
+      return res.status(500).json({ message: "Authentication failed" });
+    }
+  });
   app2.get("/api/table-rows", async (req, res) => {
     try {
       const rows = await storage.getTableRows();

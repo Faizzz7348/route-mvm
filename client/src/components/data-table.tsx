@@ -779,11 +779,11 @@ export function DataTable({
 
   return (
     <div
-      className="border border-gray-600 dark:border-gray-800/60 shadow-md shadow-black/10 dark:shadow-black/30 table-container my-10 rounded-2xl overflow-hidden bg-white dark:bg-gray-900/90"
+      className="border-2 border-gray-600 dark:border-blue-500/30 shadow-xl shadow-black/10 dark:shadow-blue-500/20 table-container my-10 rounded-2xl overflow-hidden bg-white dark:bg-black/95 dark:ring-2 dark:ring-blue-500/10 transition-all duration-500 hover:dark:shadow-blue-500/30"
       data-testid="data-table"
     >
       {/* Single Row: Filter/Sort/Search + Action Buttons */}
-      <div className="flex justify-between items-center px-6 py-3 border-b border-gray-600 dark:border-gray-800/60 bg-gray-800 dark:bg-gray-950/50 shadow-sm transition-all duration-500">
+      <div className="flex justify-between items-center px-6 py-3 border-b border-gray-600 dark:border-blue-500/20 bg-gray-800 dark:bg-gradient-to-r dark:from-gray-950/80 dark:via-blue-950/30 dark:to-gray-950/80 shadow-sm transition-all duration-500">
         {/* Left Side: Sort, Filter, and Action Buttons */}
         <div className="flex items-center gap-2 flex-shrink-0">
           {/* Custom Toolbar Content */}
@@ -798,7 +798,7 @@ export function DataTable({
             <PopoverTrigger asChild>
               <Button 
                 variant="outline" 
-                className="h-8 w-8 p-0 pagination-button rounded-lg data-[state=open]:bg-gray-700 dark:data-[state=open]:bg-gray-800"
+                className="h-8 w-8 p-0 pagination-button rounded-lg data-[state=open]:bg-gray-700 dark:data-[state=open]:bg-gray-800 dark:hover:shadow-lg dark:hover:shadow-blue-500/30 transition-all duration-300"
                 data-testid="sort-trigger"
               >
                 {sortState ? (
@@ -1244,8 +1244,8 @@ export function DataTable({
                             key={`skeleton-${index}`}
                             className={`skeleton-row border-b border-gray-200/20 dark:border-white/5 shadow-md dark:shadow-none ${
                               index % 2 === 0 
-                                ? 'bg-white/80 dark:bg-gray-900/50' 
-                                : 'bg-blue-50/50 dark:bg-blue-900/20'
+                                ? 'bg-white/80 dark:bg-black/70' 
+                                : 'bg-blue-50/50 dark:bg-black/50'
                             } transition-opacity duration-200`}
                           >
                             {/* Actions column */}
@@ -1294,20 +1294,20 @@ export function DataTable({
                                   // Main page (NOT shared view): only dim if power off (inactive)
                                   if (!isSharedView) {
                                     if (row.active === false) {
-                                      return "bg-gray-400 dark:bg-gray-800 opacity-50";
+                                      return "bg-gray-400 dark:bg-black/70 opacity-50";
                                     } else {
-                                      return "bg-gray-200 dark:bg-gray-900";
+                                      return "bg-gray-200 dark:bg-black/80";
                                     }
                                   }
                                   
                                   // Shared view & custom table: apply schedule-based styling
                                   const status = getScheduleStatus(row);
                                   if (status === 'inactive') {
-                                    return "bg-gray-400 dark:bg-gray-800 opacity-50";
+                                    return "bg-gray-400 dark:bg-black/70 opacity-50";
                                   } else if (status === 'off-schedule') {
-                                    return "bg-gray-200 dark:bg-gray-900 opacity-60";
+                                    return "bg-gray-200 dark:bg-black/60 opacity-60";
                                   } else {
-                                    return "bg-gray-200 dark:bg-gray-900";
+                                    return "bg-gray-200 dark:bg-black/75";
                                   }
                                 })()
                               } hover:bg-slate-50 hover:shadow-md dark:hover:bg-blue-800/20 dark:hover:shadow-[0_2px_12px_rgba(59,130,246,0.25)] transition-all duration-300 hover:-translate-y-0.5 border-b border-gray-600 dark:border-blue-700/20 ${
