@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { LayoutGrid, Moon, Sun, DoorOpen, Save, ListChecks, Bookmark, BookOpen, Link2, Table2, Rows, Plus, Layout, Palette, RouteIcon, Receipt, Sparkles, ZoomIn } from "lucide-react";
+import { LayoutGrid, Moon, Sun, DoorOpen, Save, ListChecks, Bookmark, BookOpen, Link2, Table2, Rows, Plus, Layout, Palette, RouteIcon, Receipt, Sparkles, ZoomIn, KeyRound } from "lucide-react";
 import { useLocation } from "wouter";
+import { ChangePasswordModal } from "@/components/change-password-modal";
 
 interface NavigationProps {
   editMode?: boolean;
@@ -26,6 +27,7 @@ interface NavigationProps {
 export function Navigation({ editMode, onEditModeRequest, onShowCustomization, onAddRow, onSaveData, onGenerateTng, onAddColumn, onOptimizeRoute, onCalculateTolls, onSaveLayout, onSavedLinks, onShowHelp, onBulkColorEdit, onShowZoom, isAuthenticated, theme, onSetTheme }: NavigationProps) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [menuOpen, setMenuOpen] = useState(false);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
   const [, navigate] = useLocation();
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -147,6 +149,13 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
                 Save Changes
               </button>
               <div className="h-px bg-gray-200 dark:bg-gray-800 my-1" />
+              <button
+                onClick={() => { setChangePasswordOpen(true); setMenuOpen(false); }}
+                className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <KeyRound className="w-4 h-4" />
+                Change Password
+              </button>
               <button
                 onClick={() => { onEditModeRequest?.(); setMenuOpen(false); }}
                 className="w-full text-left px-4 py-3 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-900 rounded-lg transition-all duration-200 ease-out text-sm font-medium flex items-center gap-3 hover:scale-[1.02] active:scale-[0.98]"
@@ -288,6 +297,12 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
           </button>
         </div>
       </nav>
+
+      {/* Change Password Modal */}
+      <ChangePasswordModal 
+        open={changePasswordOpen} 
+        onOpenChange={setChangePasswordOpen} 
+      />
     </>
   );
 }

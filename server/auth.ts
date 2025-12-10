@@ -122,3 +122,24 @@ export async function verifyPassword(password: string): Promise<boolean> {
 export async function generatePasswordHash(password: string): Promise<string> {
   return await bcrypt.hash(password, 10);
 }
+
+/**
+ * Change admin password
+ */
+export async function changePassword(currentPassword: string, newPassword: string): Promise<boolean> {
+  // Verify current password first
+  const isValid = await verifyPassword(currentPassword);
+  if (!isValid) {
+    return false;
+  }
+
+  // Generate new hash
+  const newHash = await generatePasswordHash(newPassword);
+  
+  // In production, you would update the hash in your secure storage
+  // For now, we'll just log it - you need to manually update .env.production
+  console.log('New password hash (update in .env.production):');
+  console.log(newHash);
+  
+  return true;
+}

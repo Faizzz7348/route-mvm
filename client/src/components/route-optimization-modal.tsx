@@ -150,7 +150,7 @@ export function RouteOptimizationModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2m max-h-[90vh] overflow-hidden flex flex-col bg-gradient-to-br from-background/95 via-background/98 to-background dark:from-black/95 dark:via-black/98 dark:to-black border-2 border-blue-500/20 dark:border-blue-400/20 transition-smooth rounded-lg" data-testid="modal-route-optimization">
+      <DialogContent className="max-w-2m max-h-[90vh] overflow-hidden flex flex-col bg-slate-100 dark:bg-transparent border-2 border-slate-200 dark:border-blue-500/20 transition-smooth rounded-lg" data-testid="modal-route-optimization">
         <DialogHeader className="flex-shrink-0">
           <DialogTitle className="text-1m font-semibold flex items-center gap-2 text-blue-600 dark:text-blue-400">
             <Route className="w-6 h-6" />

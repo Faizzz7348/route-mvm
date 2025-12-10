@@ -783,7 +783,7 @@ export function DataTable({
       data-testid="data-table"
     >
       {/* Single Row: Filter/Sort/Search + Action Buttons */}
-      <div className="flex justify-between items-center px-6 py-3 border-b border-gray-600 dark:border-blue-500/20 bg-gray-800 dark:bg-gradient-to-r dark:from-gray-950/80 dark:via-blue-950/30 dark:to-gray-950/80 shadow-sm transition-all duration-500">
+      <div className="flex justify-between items-center px-6 py-3 border-b border-gray-600 dark:border-blue-500/20 bg-gray-800 dark:bg-transparent shadow-sm transition-all duration-500">
         {/* Left Side: Sort, Filter, and Action Buttons */}
         <div className="flex items-center gap-2 flex-shrink-0">
           {/* Custom Toolbar Content */}
@@ -809,8 +809,8 @@ export function DataTable({
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-52 p-0" align="start">
-              <div className="p-3 btn-glass rounded-lg">
-                <h4 className="font-medium text-sm mb-3 pb-2 border-b border-border/20 flex items-center gap-2">
+              <div className="p-3 bg-slate-100 dark:bg-transparent rounded-lg border border-slate-200 dark:border-border/20">
+                <h4 className="font-medium text-sm mb-3 pb-2 border-b border-slate-300 dark:border-border/20 flex items-center gap-2">
                   <ArrowUpDown className="w-3.5 h-3.5 text-gray-400 dark:text-blue-400" />
                   Sort By
                 </h4>
@@ -930,7 +930,7 @@ export function DataTable({
                 </span>
               )}
               <PopoverContent className="w-64 p-0" align="start">
-              <div className="p-3 btn-glass rounded-lg">
+              <div className="p-3 bg-slate-100 dark:bg-transparent rounded-lg border border-slate-200 dark:border-border/20">
                 {/* Routes Section - Hidden in shared view */}
                 {!isSharedView && (
                   <>
@@ -1835,11 +1835,11 @@ export function DataTable({
             
             {/* Table Footer */}
             <tfoot className="sticky bottom-0 z-20 shadow-[inset_0_2px_4px_rgba(50,50,50,0.3)] dark:shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] bg-gray-700 dark:bg-gray-800">
-              <TableRow className="border-t border-transparent">
+              <TableRow className="border-t border-gray-600 dark:border-transparent">
                 {visibleColumns.map((column, index) => (
                   <TableCell
                     key={column.id}
-                    className="px-4 py-2 text-center table-header-footer-12px font-semibold tracking-wide sticky bottom-0 whitespace-nowrap"
+                    className="px-4 py-2 text-center table-header-footer-12px font-semibold tracking-wide sticky bottom-0 whitespace-nowrap text-gray-300 dark:text-blue-300 [text-shadow:_0_1px_2px_rgb(100_100_100_/_0.4)] dark:[text-shadow:_0_1px_2px_rgb(0_0_0_/_0.3)]"
                     style={{
                       textAlign: "center",
                       fontSize: "10px",
@@ -1847,11 +1847,11 @@ export function DataTable({
                     colSpan={column.dataKey === "location" ? 3 : 1}
                   >
                     {index === 0 ? (
-                      <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent" style={{fontSize: '11px'}}>Totals</span>
+                      <span className="font-semibold bg-gradient-to-r from-red-600 to-rose-600 dark:from-red-400 dark:to-rose-400 bg-clip-text text-transparent" style={{fontSize: '11px'}}>Totals</span>
                     ) : column.dataKey === "no" ? (
-                      <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">—</span>
+                      <span className="font-semibold">—</span>
                     ) : column.dataKey === "kilometer" ? (
-                      <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                      <span className="font-semibold">
                         {(() => {
                           const total = calculateColumnSum("kilometer", column.type);
                           return total > 0 ? `${total.toFixed(2)} km` : "—";
@@ -1859,25 +1859,25 @@ export function DataTable({
                       </span>
                     ) : column.dataKey === "tngRoute" &&
                       column.type === "currency" ? (
-                      <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                      <span className="font-semibold">
                         {formatCurrency(
                           calculateColumnSum("tngRoute", column.type),
                         )}
                       </span>
                     ) : column.dataKey === "tollPrice" &&
                       column.type === "currency" ? (
-                      <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                      <span className="font-semibold">
                         {formatCurrency(
                           calculateColumnSum("tollPrice", column.type),
                         )}
                       </span>
                     ) : (
-                      <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">—</span>
+                      <span className="font-semibold">—</span>
                     )}
                   </TableCell>
                 ))}
-                <TableCell className="p-0 text-center table-header-footer-12px font-semibold tracking-wide sticky bottom-0 whitespace-nowrap" style={{ textAlign: "center", fontSize: '10px', width: "140px", minWidth: "140px", maxWidth: "140px" }}>
-                  <span className="font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">—</span>
+                <TableCell className="p-0 text-center table-header-footer-12px font-semibold tracking-wide sticky bottom-0 whitespace-nowrap text-gray-300 dark:text-blue-300 [text-shadow:_0_1px_2px_rgb(100_100_100_/_0.4)] dark:[text-shadow:_0_1px_2px_rgb(0_0_0_/_0.3)]" style={{ textAlign: "center", fontSize: '10px', width: "140px", minWidth: "140px", maxWidth: "140px" }}>
+                  <span className="font-semibold">—</span>
                 </TableCell>
               </TableRow>
             </tfoot>
@@ -1896,7 +1896,7 @@ export function DataTable({
                     <SelectTrigger className="h-5 w-5 p-0 text-[8px] pagination-button rounded-lg [&>svg]:hidden flex items-center justify-center flex-shrink-0 text-gray-100 dark:text-gray-100 font-semibold">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-700">
                       <SelectItem value="16">16</SelectItem>
                       <SelectItem value="30">30</SelectItem>
                       <SelectItem value="50">50</SelectItem>

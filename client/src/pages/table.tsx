@@ -85,9 +85,6 @@ export default function TablePage() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [bulkColorModalOpen, setBulkColorModalOpen] = useState(false);
   const [showZoomControl, setShowZoomControl] = useState(false);
-  const [isPullingToRefresh, setIsPullingToRefresh] = useState(false);
-  const [pullStartY, setPullStartY] = useState(0);
-  const [pullDistance, setPullDistance] = useState(0);
   const tableRef = useRef<HTMLDivElement>(null);
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { toast } = useToast();
@@ -284,73 +281,6 @@ export default function TablePage() {
 
     loadLayoutPreferences();
   }, [columns]);
-
-  // Pull to refresh functionality
-  useEffect(() => {
-    let touchStartY = 0;
-    let touchCurrentY = 0;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      // Only trigger if at top of page
-      if (window.scrollY === 0) {
-        touchStartY = e.touches[0].clientY;
-        setPullStartY(touchStartY);
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (touchStartY === 0) return;
-
-      touchCurrentY = e.touches[0].clientY;
-      const distance = touchCurrentY - touchStartY;
-
-      // Only allow pull down (positive distance) and max 100px
-      if (distance > 0 && distance <= 100 && window.scrollY === 0) {
-        setPullDistance(distance);
-        setIsPullingToRefresh(true);
-      }
-    };
-
-    const handleTouchEnd = async () => {
-      if (pullDistance > 60) {
-        // Threshold reached, trigger refresh
-        setIsPullingToRefresh(true);
-        
-        try {
-          await queryClient.invalidateQueries();
-          await new Promise(resolve => setTimeout(resolve, 500)); // Brief delay for animation
-          
-          toast({
-            title: "🔄 Refreshed!",
-            description: "Data has been updated successfully.",
-          });
-        } catch (error) {
-          toast({
-            title: "Error",
-            description: "Failed to refresh data.",
-            variant: "destructive",
-          });
-        }
-      }
-
-      // Reset states
-      setPullDistance(0);
-      setPullStartY(0);
-      setIsPullingToRefresh(false);
-      touchStartY = 0;
-      touchCurrentY = 0;
-    };
-
-    document.addEventListener('touchstart', handleTouchStart, { passive: true });
-    document.addEventListener('touchmove', handleTouchMove, { passive: true });
-    document.addEventListener('touchend', handleTouchEnd);
-
-    return () => {
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [pullDistance, toast]);
 
   // Save column preferences to localStorage
   const saveColumnPreferences = (visible: string[], order: string[]) => {
@@ -1174,36 +1104,6 @@ export default function TablePage() {
 
   return (
     <>
-      {/* Pull to Refresh Indicator */}
-      {isPullingToRefresh && pullDistance > 0 && (
-        <div 
-          className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center pointer-events-none transition-all duration-200"
-          style={{ 
-            transform: `translateY(${Math.min(pullDistance, 100)}px)`,
-            opacity: Math.min(pullDistance / 60, 1)
-          }}
-        >
-          <div className="bg-blue-500 dark:bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-2">
-            {pullDistance > 60 ? (
-              <>
-                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <span className="text-sm font-medium">Release to refresh...</span>
-              </>
-            ) : (
-              <>
-                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-                <span className="text-sm font-medium">Pull to refresh</span>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* Edit Mode Loading Overlay */}
       {editModeLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-slate-50/95 to-slate-100/95 dark:from-slate-900/95 dark:to-slate-800/95 backdrop-blur-sm">

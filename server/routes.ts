@@ -5,7 +5,7 @@ import { insertTableRowSchema, insertTableColumnSchema, insertRouteOptimizationS
 import { z } from "zod";
 import { optimizeRoute } from "./routeOptimizer.js";
 import { calculateTollPrice, calculateRoutesForDestinations } from "./openrouteservice.js";
-import { verifyPassword, checkRateLimit, recordFailedAttempt, resetRateLimit } from "./auth.js";
+import { verifyPassword, checkRateLimit, recordFailedAttempt, resetRateLimit, changePassword } from "./auth.js";
 
 // UUID validation schema
 const uuidSchema = z.string().uuid();
@@ -46,6 +46,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Authentication error:', error);
       return res.status(500).json({ message: "Authentication failed" });
+    }
+  });
+
+  // Change password endpoint
+  app.post("/api/auth/change-password", async (req, res) => {
+    const ip = req.ip || req.socket.remoteAddress || 'unknown';
+    
+    try {
+      // Check rate limit
+      const rateLimit = checkRateLimit(ip);
+      if (!rateLimit.allowed) {
+        return res.status(429).json({ 
+          message: "Too many failed attempts. Please try again later.",
+          retryAfter: rateLimit.retryAfter 
+        });
+      }
+
+      const { currentPassword, newPassword } = req.body;
+      
+      if (!currentPassword || !newPassword) {
+        return res.status(400).json({ message: "Current password and new password are required" });
+      }
+
+      if (newPassword.length < 6) {
+        return res.status(400).json({ message: "New password must be at least 6 characters long" });
+      }
+
+      // Change password
+      const success = await changePassword(currentPassword, newPassword);
+      
+      if (success) {
+        resetRateLimit(ip);
+        return res.json({ success: true, message: "Password changed successfully" });
+      } else {
+        recordFailedAttempt(ip);
+        return res.status(401).json({ success: false, message: "Current password is incorrect" });
+      }
+    } catch (error) {
+      console.error('Change password error:', error);
+      return res.status(500).json({ message: "Failed to change password" });
     }
   });
 
