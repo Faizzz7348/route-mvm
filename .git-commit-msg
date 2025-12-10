@@ -1,0 +1,27 @@
+feat: premium UI enhancements, password security, and code optimization
+
+✨ Premium UI Enhancements:
+- Glassmorphism effects on navigation and table components
+- Smooth animations and gradient glows throughout app
+- Consistent styling across all popovers and dialogs (bg-slate-100 light mode pattern)
+- Darker table rows and refined dark mode color scheme
+- Enhanced total row with red gradient text matching action buttons
+- Improved mobile responsiveness with 16px font size
+
+🔐 Security Features:
+- Add change password modal with current/new/confirm password fields
+- Password visibility toggle with Eye/EyeOff icons
+- Server-side password verification with bcrypt hashing
+- API endpoint /api/auth/change-password with rate limiting
+- Minimum 6 character password validation
+
+🧹 Code Cleanup:
+- Remove pull-to-refresh functionality completely
+- Clean up unused state variables and event handlers
+- Remove pull-to-refresh UI indicator
+
+🎨 Component Updates:
+- Navigation: Added KeyRound icon and change password button in edit mode
+- Data Table: Consistent backgrounds for toolbar, sort, filter, entries selector
+- Route Optimization Modal: Updated to use standard bg-slate-100 pattern
+- Footer: Total row styled to match column headers with red 'Totals' text

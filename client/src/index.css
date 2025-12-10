@@ -9,7 +9,7 @@
 
 /* Responsive Base */
 html {
-  font-size: 16px;
+  font-size: 100%;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   touch-action: manipulation;
@@ -21,27 +21,6 @@ body {
   min-height: -webkit-fill-available;
   width: 100%;
   overflow-x: hidden;
-}
-
-/* Mobile & Tablet Optimization */
-@media (max-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  /* iPad & Tablet */
-  html {
-    font-size: 15px;
-  }
-}
-
-@media (min-width: 1025px) {
-  /* Desktop */
-  html {
-    font-size: 16px;
-  }
 }
 
 /* iPad Specific Optimization */
