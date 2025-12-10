@@ -492,7 +492,8 @@ export default function SharedTablePage() {
       </nav>
 
       <main className="fixed inset-0 bg-white dark:bg-black pt-[56px] pb-24 overflow-y-auto">
-        <div className="container mx-auto px-4 py-8 mt-[5%]">
+        <div className="w-full flex justify-center mt-[5%]">
+        <div className="max-w-4xl w-full px-4 py-8">
           {/* Data Table */}
           <DataTable
             rows={rowsWithDistances}
@@ -525,6 +526,7 @@ export default function SharedTablePage() {
             filteredRowsCount={rowsWithDistances.length}
             totalRowsCount={rows.length}
           />
+        </div>
         </div>
       </main>
 

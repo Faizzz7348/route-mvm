@@ -341,7 +341,7 @@ export default function CustomTableList() {
       </nav>
       <main className="fixed inset-0 bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-black pt-[72px] pb-24 overflow-y-auto">
         <div className="w-full flex justify-center mt-[5%]">
-        <div className="max-w-3xl w-full px-6">
+        <div className="max-w-4xl w-full px-6">
         {/* Action Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
           <div className={`text-sm whitespace-nowrap ${isEditDialogOpen ? "text-green-600 dark:text-green-400 font-semibold" : "text-gray-600 dark:text-gray-400"}`}>
@@ -459,7 +459,7 @@ export default function CustomTableList() {
 
         {/* Existing Custom Tables */}
         <div className="flex justify-center w-full">
-          <div className="bg-white dark:bg-gray-950 backdrop-blur-2xl border border-gray-200 dark:border-gray-800 shadow-xl rounded-xl p-6 w-full max-w-3xl">
+          <div className="bg-white dark:bg-gray-950 backdrop-blur-2xl border border-gray-200 dark:border-gray-800 shadow-xl rounded-xl p-6 w-full max-w-4xl">
             <h6 className="font-semibold mb-6 text-gray-900 dark:text-white text-center" style={{ fontSize: '10px' }}>📋 My Custom Tables</h6>
             {customTables.length === 0 ? (
               <p className="text-center text-gray-600 dark:text-gray-400 py-8">

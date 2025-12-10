@@ -687,9 +687,24 @@ export default function TablePage() {
           description: "New row has been added to the end of the table.",
         });
       } else {
-        // For specific position, we'll add at the end and then reorder
-        // This is a simplified approach since the current API doesn't support position insertion
-        await createRow.mutateAsync(newRowData);
+        // Create the row first (it will be added at the end)
+        const newRow = await createRow.mutateAsync(newRowData);
+        
+        // Get current row IDs in order
+        const currentRowIds = rows.map(row => row.id);
+        
+        // Insert the new row ID at the specific position
+        // Position is 1-indexed, so subtract 1 for array index
+        const insertIndex = specificPosition - 1;
+        const newRowIds = [
+          ...currentRowIds.slice(0, insertIndex),
+          newRow.id,
+          ...currentRowIds.slice(insertIndex)
+        ];
+        
+        // Reorder all rows with the new order
+        await reorderRows.mutateAsync(newRowIds);
+        
         toast({
           title: "Row Added",
           description: `New row has been added at position ${specificPosition}.`,
@@ -1054,13 +1069,13 @@ export default function TablePage() {
       }, 1000);
       return () => clearTimeout(timer);
     } else {
-      // Intro loading - full 5 seconds with fancy animation (first launch or after long absence)
+      // Intro loading - full 3 seconds with fancy animation (first launch or after long absence)
       setIsIntroLoading(true);
       const timer = setTimeout(() => {
         setMinLoadingComplete(true);
         sessionStorage.setItem('routevm_loaded', 'true');
         sessionStorage.setItem('routevm_last_visit', now.toString());
-      }, 5000);
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -1162,7 +1177,7 @@ export default function TablePage() {
       </div>
       <main className="fixed inset-0 bg-gradient-to-br from-gray-50 to-white dark:from-gray-950 dark:to-black pt-[72px] pb-24 overflow-y-auto">
         <div className="w-full flex justify-center mt-[5%] min-h-full">
-          <div id="zoomable-content" className="max-w-3xl w-full px-6 py-8 origin-top" data-testid="table-page">
+          <div id="zoomable-content" className="max-w-4xl w-full px-6 py-8 origin-top" data-testid="table-page">
           {/* Header Section - Carousel with Pages */}
           <div className="mb-8 relative animate-in fade-in slide-in-from-top-2 duration-600 delay-300">
             {sortedPages.length > 0 ? (

@@ -497,9 +497,9 @@ export function DataTable({
         }
         if (typeof kmValue === "number") {
           if (kmValue === 0) {
-            return "0.00 km";
+            return "0.0 Km";
           }
-          return `${kmValue.toFixed(2)} km`;
+          return `${kmValue.toFixed(1)} Km`;
         }
         return "—";
       default:
@@ -1213,9 +1213,9 @@ export function DataTable({
                         textAlign: "center",
                         textDecoration: "normal",
                         fontSize: "10px",
-                        width: "140px",
-                        minWidth: "140px",
-                        maxWidth: "140px"
+                        width: editMode ? "160px" : "140px",
+                        minWidth: editMode ? "160px" : "140px",
+                        maxWidth: editMode ? "160px" : "140px"
                       }}
                     >
                       <span className="bg-gradient-to-r from-red-600 to-rose-600 dark:from-red-400 dark:to-rose-400 bg-clip-text text-transparent">

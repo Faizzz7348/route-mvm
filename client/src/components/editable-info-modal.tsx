@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
@@ -75,7 +75,15 @@ export function EditableInfoModal({
   const [editedLongitude, setEditedLongitude] = useState(longitude || "");
   const [editedQrCode, setEditedQrCode] = useState(qrCode || "");
   const [isUploading, setIsUploading] = useState(false);
+  const [mapKey, setMapKey] = useState(0);
   const { toast } = useToast();
+
+  // Update map when coordinates change
+  useEffect(() => {
+    if (hasValidCoordinates()) {
+      setMapKey(prev => prev + 1);
+    }
+  }, [editedLatitude, editedLongitude]);
 
   // Helper to extract short location name from full address
   const getShortLocationName = (fullLocation: string): string => {
@@ -301,14 +309,14 @@ export function EditableInfoModal({
             </p>
           </div>
 
-          {/* Coordinate Section */}
+          {/* Coordinate Section with Live Map Preview */}
           <div className="bg-green-50/80 dark:bg-black/50 backdrop-blur-sm border border-green-200 dark:border-white/15 rounded-lg p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-4">
               <MapPin className="w-4 h-4 text-green-600 dark:text-blue-400" />
               <h4 className="text-sm font-medium text-green-700 dark:text-foreground/80">📍 Location Coordinates</h4>
             </div>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className="text-xs font-medium text-green-700 dark:text-foreground/70 mb-2 block">
                   Latitude:
@@ -337,8 +345,29 @@ export function EditableInfoModal({
               </div>
             </div>
 
-            <p className="text-xs text-muted-foreground mt-3">
-              🗺️ Enter coordinates in decimal degrees format for accurate location mapping.
+            {/* Live Map Preview - Shows immediately as coordinates are entered */}
+            {hasValidCoordinates() && (
+              <div className="space-y-2 mb-3 bg-white/50 dark:bg-black/30 p-3 rounded-lg border border-green-200 dark:border-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <p className="text-xs font-medium text-green-700 dark:text-green-400">Live Location Preview</p>
+                </div>
+                <MiniMap
+                  key={mapKey}
+                  locations={[{
+                    latitude: parseFloat(editedLatitude),
+                    longitude: parseFloat(editedLongitude),
+                    label: location || 'Location',
+                    code: code
+                  }]}
+                  height="140px"
+                  showFullscreenButton={false}
+                />
+              </div>
+            )}
+
+            <p className="text-xs text-muted-foreground">
+              🗺️ Enter coordinates in decimal degrees format. Map preview updates automatically.
             </p>
           </div>
 
@@ -349,12 +378,30 @@ export function EditableInfoModal({
               <h4 className="text-sm font-medium text-indigo-700 dark:text-foreground/80">📱 QR Code Photo</h4>
             </div>
             
-            <div className="space-y-3">
-              <div>
-                <label className="text-xs font-medium text-indigo-700 dark:text-muted-foreground">
-                  Upload QR Code Image:
-                </label>
-                <div className="flex gap-2 mt-2">
+            <div className="space-y-4">
+              {/* QR Code Preview - Show at top if exists */}
+              {editedQrCode && (
+                <div className="bg-white/60 dark:bg-black/40 p-3 rounded-lg border border-indigo-200 dark:border-white/15">
+                  <label className="text-xs font-medium text-indigo-700 dark:text-indigo-400 mb-2 block">Current QR Code:</label>
+                  <div className="border-2 border-indigo-300 dark:border-indigo-500 rounded-md overflow-hidden bg-white">
+                    <img 
+                      src={editedQrCode} 
+                      alt="QR Code Preview" 
+                      className="w-full h-40 object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Upload Section */}
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-medium text-indigo-700 dark:text-foreground/70 mb-2 block">
+                    Upload QR Code Image:
+                  </label>
                   <input
                     type="file"
                     accept="image/*"
@@ -369,73 +416,41 @@ export function EditableInfoModal({
                     size="sm"
                     onClick={() => document.getElementById(`qr-upload-${rowId}`)?.click()}
                     disabled={isUploading}
-                    className="flex-1 bg-white/80 dark:bg-black/40 hover:bg-white dark:hover:bg-black/50 backdrop-blur-sm border border-indigo-200 dark:border-white/30"
+                    className="w-full bg-white/80 dark:bg-black/40 hover:bg-white dark:hover:bg-black/50 backdrop-blur-sm border border-indigo-200 dark:border-white/30"
                     data-testid={`button-upload-qr-${rowId}`}
                   >
                     <Upload className="w-4 h-4 mr-2" />
-                    {isUploading ? 'Uploading...' : 'Upload Image'}
+                    {isUploading ? 'Uploading...' : 'Upload New QR Image'}
                   </Button>
                 </div>
-              </div>
 
-              <div className="text-xs text-center text-muted-foreground">OR</div>
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 h-px bg-indigo-200 dark:bg-white/10"></div>
+                  <span className="text-xs text-muted-foreground font-medium">OR</span>
+                  <div className="flex-1 h-px bg-indigo-200 dark:bg-white/10"></div>
+                </div>
 
-              <div>
-                <label className="text-xs font-medium text-indigo-700 dark:text-muted-foreground">
-                  Enter QR Code URL:
-                </label>
-                <Input
-                  type="text"
-                  value={editedQrCode}
-                  onChange={(e) => setEditedQrCode(e.target.value)}
-                  placeholder="Enter QR code photo URL..."
-                  className="mt-2 text-sm bg-white/10 dark:bg-black/10 border-white/20 dark:border-white/10 backdrop-blur-sm"
-                  style={{fontSize: '11px'}}
-                  data-testid={`input-qrcode-${rowId}`}
-                />
-              </div>
-            </div>
-
-            {editedQrCode && (
-              <div className="mt-2">
-                <label className="text-xs font-medium text-muted-foreground">Preview:</label>
-                <div className="mt-1 border rounded-md overflow-hidden">
-                  <img 
-                    src={editedQrCode} 
-                    alt="QR Code Preview" 
-                    className="w-full h-32 object-contain bg-white"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
+                <div>
+                  <label className="text-xs font-medium text-indigo-700 dark:text-foreground/70 mb-2 block">
+                    Enter QR Code URL:
+                  </label>
+                  <Input
+                    type="text"
+                    value={editedQrCode}
+                    onChange={(e) => setEditedQrCode(e.target.value)}
+                    placeholder="https://example.com/qr-code.jpg"
+                    className="text-sm bg-white/80 dark:bg-black/60 border-indigo-200 dark:border-white/20 backdrop-blur-sm"
+                    data-testid={`input-qrcode-${rowId}`}
                   />
                 </div>
               </div>
-            )}
+            </div>
 
-            <p className="text-xs text-muted-foreground">
-              Add a QR code photo URL for quick access and scanning.
+            <p className="text-xs text-muted-foreground mt-3">
+              📷 Upload or link to a QR code image for quick access and scanning.
             </p>
           </div>
 
-          {/* Mini Map Preview */}
-          {hasValidCoordinates() && (
-            <div className="space-y-2 pt-2 border-t">
-              <h4 className="text-sm font-medium">Location Preview</h4>
-              <MiniMap 
-                locations={[{
-                  latitude: parseFloat(editedLatitude),
-                  longitude: parseFloat(editedLongitude),
-                  label: location || 'Location',
-                  code: code
-                }]}
-                height="120px"
-                showFullscreenButton={false}
-              />
-              <p className="text-xs text-muted-foreground">
-                Live preview of the location based on entered coordinates.
-              </p>
-            </div>
-          )}
         </div>
 
         <DialogFooter className="space-x-3 flex-shrink-0 mt-6 border-t border-white/20 dark:border-white/15 pt-4 bg-black/30 dark:bg-black/50 backdrop-blur-sm rounded-b-xl -mx-6 -mb-6 px-6 py-4">
