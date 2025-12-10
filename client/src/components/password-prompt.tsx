@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Lock, Eye, EyeOff } from "lucide-react";
+import { Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface PasswordPromptProps {
@@ -16,27 +16,64 @@ interface PasswordPromptProps {
 export function PasswordPrompt({ open, onOpenChange, onSuccess, title, description }: PasswordPromptProps) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
   const { toast } = useToast();
 
-  const correctPassword = "Acun97";
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (password === correctPassword) {
-      onSuccess();
-      onOpenChange(false);
-      setPassword("");
+    if (!password) {
       toast({
+        title: "Error",
+        description: "Please enter a password.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsVerifying(true);
+
+    try {
+      const response = await fetch('/api/auth/verify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        onSuccess();
+        onOpenChange(false);
+        setPassword("");
+        toast({
         title: "Access Granted",
         description: "You now have access to restricted features.",
       });
-    } else {
+      } else if (response.status === 429) {
+        toast({
+          title: "Too Many Attempts",
+          description: data.message || "Please try again later.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Access Denied",
+          description: data.message || "Incorrect password. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
       toast({
-        title: "Access Denied",
-        description: "Incorrect password. Please try again.",
+        title: "Error",
+        description: "Failed to verify password. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsVerifying(false);
       setPassword("");
     }
   };
@@ -100,11 +137,18 @@ export function PasswordPrompt({ open, onOpenChange, onSuccess, title, descripti
               </Button>
               <Button
                 type="submit"
-                disabled={!password.trim()}
+                disabled={!password.trim() || isVerifying}
                 className="transition-all duration-200 backdrop-blur-sm border-transparent bg-transparent text-green-500 hover:bg-green-500/10 disabled:text-muted-foreground disabled:hover:bg-transparent h-8 px-3 text-xs"
                 data-testid="submit-password"
               >
-                Unlock
+                {isVerifying ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
+                    Verifying...
+                  </>
+                ) : (
+                  'Unlock'
+                )}
               </Button>
             </div>
           </form>

@@ -7,6 +7,24 @@ const app = express();
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 
+// HTTPS Redirect Middleware (Production only)
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    // Check if request is not secure
+    if (req.headers['x-forwarded-proto'] !== 'https' && req.header('x-forwarded-proto') !== 'https') {
+      // Redirect to HTTPS
+      return res.redirect(301, `https://${req.headers.host}${req.url}`);
+    }
+    
+    // Add security headers
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+  }
+  next();
+});
+
 // Health check endpoint for deployment verification - responds immediately without database
 app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({ 
@@ -18,7 +36,23 @@ app.get('/health', (_req: Request, res: Response) => {
 
 // CORS and Cache Control configuration
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  // Get allowed origins from environment or use wildcard in development
+  const allowedOrigins = process.env.ALLOWED_ORIGINS 
+    ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+    : ['*'];
+  
+  const origin = req.headers.origin;
+  
+  // In production, check against whitelist
+  if (process.env.NODE_ENV === 'production' && origin) {
+    if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      res.header('Access-Control-Allow-Origin', origin);
+    }
+  } else {
+    // In development, allow all origins
+    res.header('Access-Control-Allow-Origin', '*');
+  }
+  
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');

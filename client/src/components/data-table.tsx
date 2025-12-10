@@ -1421,18 +1421,6 @@ export function DataTable({
                                     <span className="font-mono text-black dark:text-slate-400" style={{ fontSize: '10px' }}>
                                       {getCellValue(row, column, index)}
                                     </span>
-                                  ) : column.dataKey === "no" && editMode && row.location !== "QL Kitchen" ? (
-                                    <EditableCell
-                                      value={String(row.no || 0)}
-                                      type="number"
-                                      dataKey={column.dataKey}
-                                      onSave={(value) =>
-                                        onUpdateRow.mutate({
-                                          id: row.id,
-                                          updates: { no: parseInt(value) || 0 },
-                                        })
-                                      }
-                                    />
                                   ) : editMode &&
                                     column.isEditable === "true" ? (
                                     <EditableCell

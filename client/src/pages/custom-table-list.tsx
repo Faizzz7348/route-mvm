@@ -24,7 +24,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Share2, Trash2, Copy, Check, Home, Edit, ArrowLeft, MoreVertical, ChevronDown } from "lucide-react";
+import { Plus, Share2, Trash2, Copy, Check, Home, Edit, ArrowLeft, MoreVertical, ChevronDown, Sun, Moon } from "lucide-react";
 import type { TableRow, CustomTable } from "@shared/schema";
 import { Footer } from "@/components/footer";
 import { LoadingOverlay } from "@/components/skeleton-loader";
@@ -307,17 +307,35 @@ export default function CustomTableList() {
               </div>
             </div>
 
-            {/* Back Button */}
-            <Button
-              onClick={() => setLocation("/")}
-              variant="outline"
-              size="sm"
-              className="bg-transparent border border-gray-300 dark:border-gray-700 hover:bg-transparent w-8 h-8 md:w-auto md:h-9 p-0 md:px-3 group transition-all duration-300 ease-out hover:scale-110 active:scale-95"
-              title="Back"
-            >
-              <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-blue-400 transition-all duration-300" />
-              <span className="hidden md:inline ml-2 text-xs transition-all duration-300">Back</span>
-            </Button>
+            {/* Right side buttons - Theme Toggle & Back */}
+            <div className="flex items-center gap-2">
+              {/* Theme Toggle Button */}
+              <Button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                variant="outline"
+                size="sm"
+                className="bg-transparent border border-gray-300 dark:border-gray-700 hover:bg-transparent w-8 h-8 p-0 group transition-all duration-300 ease-out hover:scale-110 active:scale-95"
+                title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-4 h-4 text-gray-900 dark:text-gray-100 transition-all duration-300" />
+                ) : (
+                  <Moon className="w-4 h-4 text-gray-900 dark:text-gray-100 transition-all duration-300" />
+                )}
+              </Button>
+
+              {/* Back Button */}
+              <Button
+                onClick={() => setLocation("/")}
+                variant="outline"
+                size="sm"
+                className="bg-transparent border border-gray-300 dark:border-gray-700 hover:bg-transparent w-8 h-8 md:w-auto md:h-9 p-0 md:px-3 group transition-all duration-300 ease-out hover:scale-110 active:scale-95"
+                title="Back"
+              >
+                <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-blue-400 transition-all duration-300" />
+                <span className="hidden md:inline ml-2 text-xs transition-all duration-300">Back</span>
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
@@ -339,7 +357,7 @@ export default function CustomTableList() {
             } disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-colors`}
           >
             <Plus className="h-4 w-4 mr-2" />
-            Create Custom Table
+            <span style={{ fontSize: '10px' }}>Create Custom Table</span>
           </Button>
         </div>
 
@@ -442,7 +460,7 @@ export default function CustomTableList() {
         {/* Existing Custom Tables */}
         <div className="flex justify-center w-full">
           <div className="bg-white dark:bg-gray-950 backdrop-blur-2xl border border-gray-200 dark:border-gray-800 shadow-xl rounded-xl p-6 w-full max-w-3xl">
-            <h6 className="font-semibold mb-6 text-gray-900 dark:text-white text-center" style={{ fontSize: '14px' }}>📋 My Custom Tables</h6>
+            <h6 className="font-semibold mb-6 text-gray-900 dark:text-white text-center" style={{ fontSize: '10px' }}>📋 My Custom Tables</h6>
             {customTables.length === 0 ? (
               <p className="text-center text-gray-600 dark:text-gray-400 py-8">
                 No custom tables yet. Create one to get started!
@@ -551,7 +569,7 @@ export default function CustomTableList() {
             className="relative z-10"
             style={{ paddingTop: 'max(1.5rem, env(safe-area-inset-top))' }}
           >
-            <DialogTitle>Create Custom Table</DialogTitle>
+            <DialogTitle style={{ fontSize: '10px' }}>Create Custom Table</DialogTitle>
             <DialogDescription>
               Enter a name and optional description for your custom table.
             </DialogDescription>

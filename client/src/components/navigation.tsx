@@ -96,18 +96,37 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
             </div>
           </div>
 
-          {/* Navigation - Single Menu Button */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="relative bg-white dark:bg-gray-950 backdrop-blur-xl border border-gray-300 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 h-10 px-4 rounded-[14px] transition-all duration-300 ease-out hover:scale-105 active:scale-95 group"
-            data-testid="button-main-menu"
-            title="Menu"
-          >
-            <LayoutGrid className="w-4 h-4 text-gray-900 dark:text-gray-100 transition-transform duration-200 group-hover:scale-110" />
-            <span className="hidden md:inline ml-2 text-xs font-semibold text-gray-900 dark:text-gray-100">Menu</span>
-          </Button>
+          {/* Right side buttons - Theme Toggle & Menu */}
+          <div className="flex items-center gap-2">
+            {/* Theme Toggle Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onSetTheme?.(theme === 'dark' ? 'light' : 'dark')}
+              className="relative bg-white dark:bg-gray-950 backdrop-blur-xl border border-gray-300 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 h-10 w-10 p-0 rounded-[14px] transition-all duration-300 ease-out hover:scale-105 active:scale-95 group"
+              data-testid="button-theme-toggle"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-gray-900 dark:text-gray-100 transition-transform duration-200 group-hover:scale-110" />
+              ) : (
+                <Moon className="w-4 h-4 text-gray-900 dark:text-gray-100 transition-transform duration-200 group-hover:scale-110" />
+              )}
+            </Button>
+
+            {/* Menu Button */}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="relative bg-white dark:bg-gray-950 backdrop-blur-xl border border-gray-300 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-gray-400 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-900 h-10 px-4 rounded-[14px] transition-all duration-300 ease-out hover:scale-105 active:scale-95 group"
+              data-testid="button-main-menu"
+              title="Menu"
+            >
+              <LayoutGrid className="w-4 h-4 text-gray-900 dark:text-gray-100 transition-transform duration-200 group-hover:scale-110" />
+              <span className="hidden md:inline ml-2 text-xs font-semibold text-gray-900 dark:text-gray-100">Menu</span>
+            </Button>
+          </div>
         </div>
         </div>
 
@@ -117,30 +136,6 @@ export function Navigation({ editMode, onEditModeRequest, onShowCustomization, o
             ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' 
             : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
         }`}>
-          {/* Theme Switcher */}
-          <div className="px-4 py-2">
-            <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
-              <button
-                onClick={() => onSetTheme?.('dark')}
-                className={`flex-1 p-2 rounded-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 hover:scale-105 active:scale-95 ${theme === 'dark' ? 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
-                title="Dark Mode"
-              >
-                <Moon className="w-4 h-4" />
-                <span className="text-xs">Dark</span>
-              </button>
-              <button
-                onClick={() => onSetTheme?.('light')}
-                className={`flex-1 p-2 rounded-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 hover:scale-105 active:scale-95 ${theme === 'light' ? 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/50'}`}
-                title="Light Mode"
-              >
-                <Sun className="w-4 h-4" />
-                <span className="text-xs">Light</span>
-              </button>
-            </div>
-          </div>
-
-          <div className="h-px bg-gray-200 dark:bg-gray-800 my-1" />
-
           {/* Primary Actions */}
           {editMode ? (
             <>

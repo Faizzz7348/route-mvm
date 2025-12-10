@@ -5,11 +5,50 @@ import { insertTableRowSchema, insertTableColumnSchema, insertRouteOptimizationS
 import { z } from "zod";
 import { optimizeRoute } from "./routeOptimizer.js";
 import { calculateTollPrice, calculateRoutesForDestinations } from "./openrouteservice.js";
+import { verifyPassword, checkRateLimit, recordFailedAttempt, resetRateLimit } from "./auth.js";
 
 // UUID validation schema
 const uuidSchema = z.string().uuid();
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Authentication endpoint
+  app.post("/api/auth/verify", async (req, res) => {
+    const ip = req.ip || req.socket.remoteAddress || 'unknown';
+    
+    try {
+      // Check rate limit
+      const rateLimit = checkRateLimit(ip);
+      if (!rateLimit.allowed) {
+        return res.status(429).json({ 
+          message: "Too many failed attempts. Please try again later.",
+          retryAfter: rateLimit.retryAfter 
+        });
+      }
+
+      const { password } = req.body;
+      
+      if (!password) {
+        return res.status(400).json({ message: "Password is required" });
+      }
+
+      // Verify password
+      const isValid = await verifyPassword(password);
+      
+      if (isValid) {
+        // Reset rate limit on successful auth
+        resetRateLimit(ip);
+        return res.json({ success: true, message: "Authentication successful" });
+      } else {
+        // Record failed attempt
+        recordFailedAttempt(ip);
+        return res.status(401).json({ success: false, message: "Incorrect password" });
+      }
+    } catch (error) {
+      console.error('Authentication error:', error);
+      return res.status(500).json({ message: "Authentication failed" });
+    }
+  });
+
   // Table rows routes
   app.get("/api/table-rows", async (req, res) => {
     try {
