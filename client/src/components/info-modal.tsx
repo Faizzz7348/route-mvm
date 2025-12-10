@@ -295,7 +295,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
         </Button>
       </DialogTrigger>
       <DialogContent 
-        className="max-w-lg overflow-hidden flex flex-col bg-gradient-to-br from-purple-50/90 via-pink-50/85 to-blue-100/90 dark:from-slate-900/90 dark:via-purple-950/85 dark:to-blue-950/90 backdrop-blur-3xl border-2 border-purple-200/40 dark:border-purple-500/30 shadow-[0_25px_80px_-20px_rgba(147,51,234,0.4)] dark:shadow-[0_25px_80px_-20px_rgba(147,51,234,0.6)] rounded-3xl transition-all data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-100 duration-300 ease-out ring-2 ring-white/30 dark:ring-purple-400/20"
+        className="max-w-lg overflow-hidden flex flex-col bg-white/40 dark:bg-slate-900/95 backdrop-blur-3xl border border-white/60 dark:border-slate-700/30 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.1)] dark:shadow-[0_25px_80px_-20px_rgba(0,0,0,0.5)] rounded-3xl transition-all data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-100 duration-300 ease-out ring-1 ring-white/50 dark:ring-slate-700/20"
         style={{
           maxHeight: 'min(90vh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 40px))',
           touchAction: 'pan-y',
@@ -303,17 +303,17 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
       >
         {/* Premium Frosted Glass Layer */}
         <div 
-          className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-purple-100/70 via-pink-100/60 to-blue-200/80 dark:from-purple-900/70 dark:via-fuchsia-950/60 dark:to-blue-900/80 border-0 shadow-inner" 
+          className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-white/90 via-gray-50/80 to-blue-50/70 dark:from-slate-900/90 dark:via-slate-800/80 dark:to-slate-900/90 border-0 shadow-inner" 
           style={{
-            backdropFilter: 'blur(80px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(80px) saturate(180%)',
+            backdropFilter: 'blur(120px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(120px) saturate(200%)',
           }}
         />
         <DialogHeader 
-          className="pb-4 border-b border-purple-200/70 dark:border-purple-700/70 flex-shrink-0 bg-gradient-to-r from-transparent via-purple-100/40 to-transparent dark:via-purple-900/30"
+          className="pb-4 border-b border-gray-200/50 dark:border-slate-700/50 flex-shrink-0 bg-gradient-to-r from-transparent via-white/20 dark:via-slate-800/20 to-transparent"
           style={{ paddingTop: 'max(1.5rem, env(safe-area-inset-top))' }}
         >
-          <DialogTitle className="font-bold text-center bg-gradient-to-r from-purple-700 via-pink-600 to-blue-700 dark:from-purple-300 dark:via-pink-400 dark:to-blue-300 bg-clip-text text-transparent drop-shadow-sm" style={{fontSize: '12px', letterSpacing: '0.02em'}}>
+          <DialogTitle className="font-bold text-center bg-gradient-to-r from-gray-700 via-blue-600 to-gray-700 dark:from-slate-200 dark:via-slate-300 dark:to-slate-200 bg-clip-text text-transparent drop-shadow-sm" style={{fontSize: '12px', letterSpacing: '0.02em'}}>
             {location || 'Location'}
           </DialogTitle>
           <div className="text-center text-slate-600 dark:text-slate-400 pt-2 font-medium" style={{fontSize: '10px'}}>
@@ -668,7 +668,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
         </div>
         <DialogFooter 
-          className="pt-5 mt-0 border-t border-purple-200/60 dark:border-purple-800/60 bg-gradient-to-b from-purple-50/90 to-pink-50/80 dark:from-purple-950/90 dark:to-fuchsia-950/80 backdrop-blur-3xl rounded-b-3xl -mx-6 -mb-6 px-6 relative overflow-hidden transition-all duration-300"
+          className="pt-5 mt-0 border-t border-gray-200/50 dark:border-slate-700/50 bg-white/60 dark:bg-slate-900/80 backdrop-blur-3xl rounded-b-3xl -mx-6 -mb-6 px-6 relative overflow-hidden transition-all duration-300"
           style={{ paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}
         >
           {/* Main Grid Button - Apple Style */}
@@ -867,7 +867,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
       {/* Web Portal Confirmation Dialog */}
       <Dialog open={showChecklistConfirm} onOpenChange={setShowChecklistConfirm}>
-        <DialogContent className="max-w-md animate-in zoom-in-95 duration-200 bg-gradient-to-br from-background/95 via-background/98 to-background dark:from-black/95 dark:via-black/98 dark:to-black border-2 border-blue-500/20 dark:border-blue-400/20">
+        <DialogContent className="max-w-md animate-in zoom-in-95 duration-300 bg-white/40 dark:bg-slate-900/95 backdrop-blur-2xl border border-white/60 dark:border-slate-700/30 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)] ring-1 ring-white/50 dark:ring-slate-700/20">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
               <ListChecks className="w-5 h-5" />
