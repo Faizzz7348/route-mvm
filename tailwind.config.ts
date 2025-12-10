@@ -117,6 +117,22 @@ export default {
         'glow-lg': '0 0 30px rgba(59, 130, 246, 0.5)',
       },
     },
+    screens: {
+      'xs': '320px',    // Small phones
+      'sm': '640px',    // Large phones
+      'md': '768px',    // Tablets (portrait)
+      'lg': '1024px',   // Tablets (landscape) / Small laptops
+      'xl': '1280px',   // Desktops
+      '2xl': '1536px',  // Large desktops
+      // Custom breakpoints
+      'iphone': '375px',      // iPhone SE, 6, 7, 8
+      'iphone-plus': '414px', // iPhone Plus models
+      'iphone-pro': '390px',  // iPhone 12/13/14 Pro
+      'iphone-max': '428px',  // iPhone Pro Max
+      'ipad': '768px',        // iPad (portrait)
+      'ipad-pro': '1024px',   // iPad Pro (portrait)
+      'ipad-landscape': '1024px', // iPad (landscape)
+    },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;

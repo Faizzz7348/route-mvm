@@ -3,10 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <title>FM Route Try System</title>
+    
+    <!-- Enhanced Viewport for All Devices -->
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover, user-scalable=yes"
     />
+    
+    <!-- Force Responsive Design -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="FM Try Route" />
+    
+    <!-- Auto-detect Device Type -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="date=no" />
+    <meta name="format-detection" content="address=no" />
+    <meta name="format-detection" content="email=no" />
+    
+    <!-- iPad & Tablet Optimization -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="width" />
+    
+    <!-- Theme Color (Dark) -->
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/FamilyMart.png" />
@@ -22,12 +44,13 @@
     <link rel="icon" sizes="192x192" href="/assets/FamilyMart.png" />
     <link rel="icon" sizes="512x512" href="/assets/FamilyMart.png" />
     
-    <!-- PWA meta tags -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="FM Try Route" />
-    <meta name="theme-color" content="#000000" />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Microsoft Tiles -->
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="msapplication-TileImage" content="/assets/FamilyMart.png" />
+    <meta name="msapplication-config" content="none" />
     <meta name="application-name" content="FM Try Route" />
     
     <!-- Theme color for browser tab and address bar - Dynamic via JS -->
