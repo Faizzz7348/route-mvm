@@ -295,28 +295,28 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
         </Button>
       </DialogTrigger>
       <DialogContent 
-        className="max-w-lg overflow-hidden flex flex-col bg-white/50 dark:bg-black/20 backdrop-blur-2xl border-2 border-gray-300 dark:border-gray-400 shadow-[0_20px_60px_0_rgba(0,0,0,0.25)] rounded-xl transition-smooth data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-90 data-[state=open]:zoom-in-95 duration-300 ease-out"
+        className="max-w-lg overflow-hidden flex flex-col bg-gradient-to-br from-purple-50/90 via-pink-50/85 to-blue-100/90 dark:from-slate-900/90 dark:via-purple-950/85 dark:to-blue-950/90 backdrop-blur-3xl border-2 border-purple-200/40 dark:border-purple-500/30 shadow-[0_25px_80px_-20px_rgba(147,51,234,0.4)] dark:shadow-[0_25px_80px_-20px_rgba(147,51,234,0.6)] rounded-3xl transition-all data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-100 duration-300 ease-out ring-2 ring-white/30 dark:ring-purple-400/20"
         style={{
           maxHeight: 'min(90vh, calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 40px))',
           touchAction: 'pan-y',
         }}
       >
-        {/* iOS Frosted Glass Layer */}
+        {/* Premium Frosted Glass Layer */}
         <div 
-          className="absolute inset-0 -z-10 rounded-xl bg-gradient-to-br from-white/60 via-white/40 to-white/50 dark:from-black/40 dark:via-black/20 dark:to-black/30 border-0 shadow-inner" 
+          className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-purple-100/70 via-pink-100/60 to-blue-200/80 dark:from-purple-900/70 dark:via-fuchsia-950/60 dark:to-blue-900/80 border-0 shadow-inner" 
           style={{
-            backdropFilter: 'blur(40px)',
-            WebkitBackdropFilter: 'blur(40px)',
+            backdropFilter: 'blur(80px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(80px) saturate(180%)',
           }}
         />
         <DialogHeader 
-          className="pb-6 border-b border-blue-900 dark:border-cyan-400/50 flex-shrink-0"
+          className="pb-4 border-b border-purple-200/70 dark:border-purple-700/70 flex-shrink-0 bg-gradient-to-r from-transparent via-purple-100/40 to-transparent dark:via-purple-900/30"
           style={{ paddingTop: 'max(1.5rem, env(safe-area-inset-top))' }}
         >
-          <DialogTitle className="font-semibold text-center text-slate-900 dark:text-slate-400" style={{fontSize: '10px'}}>
+          <DialogTitle className="font-bold text-center bg-gradient-to-r from-purple-700 via-pink-600 to-blue-700 dark:from-purple-300 dark:via-pink-400 dark:to-blue-300 bg-clip-text text-transparent drop-shadow-sm" style={{fontSize: '12px', letterSpacing: '0.02em'}}>
             {location || 'Location'}
           </DialogTitle>
-          <div className="text-center text-muted-foreground pt-2" style={{fontSize: '10px'}}>
+          <div className="text-center text-slate-600 dark:text-slate-400 pt-2 font-medium" style={{fontSize: '10px'}}>
             {code || ''}
           </div>
         </DialogHeader>
@@ -330,10 +330,10 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
         >
           {/* Mini Map Section - MOVED TO TOP */}
           {latitude && longitude && !isNaN(parseFloat(latitude)) && !isNaN(parseFloat(longitude)) && (
-            <div className="bg-transparent backdrop-blur-sm rounded-xl p-4 space-y-3 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-xl p-4 space-y-3 shadow-lg border border-slate-200/50 dark:border-slate-700/50 ring-1 ring-white/20 dark:ring-white/5">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 dark:bg-green-300 rounded-full animate-pulse"></div>
-                <h4 className="font-semibold text-green-500 dark:text-green-300" style={{fontSize: '10px'}}>🗺️ Location Map</h4>
+                <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full animate-pulse shadow-sm"></div>
+                <h4 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400" style={{fontSize: '10px', letterSpacing: '0.02em'}}>🗺️ Location Map</h4>
               </div>
               <MiniMap 
                 locations={(() => {
@@ -403,10 +403,10 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
           )}
 
           {/* Description Section */}
-          <div className="bg-transparent backdrop-blur-sm rounded-xl p-4 space-y-3 shadow-sm">
+          <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-xl p-4 space-y-3 shadow-lg border border-slate-200/50 dark:border-slate-700/50 ring-1 ring-white/20 dark:ring-white/5">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full"></div>
-              <h4 className="font-semibold text-purple-600 dark:text-purple-400" style={{fontSize: '10px'}}>📝 Description</h4>
+              <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-sm"></div>
+              <h4 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400" style={{fontSize: '10px', letterSpacing: '0.02em'}}>📝 Description</h4>
             </div>
             <EditableDescriptionList
               value={(() => {
@@ -520,10 +520,10 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
           {/* QR Code URL Section - Only show in edit mode */}
           {editMode && (
-            <div className="bg-transparent backdrop-blur-sm rounded-xl p-4 space-y-3 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-xl p-4 space-y-3 shadow-lg border border-slate-200/50 dark:border-slate-700/50 ring-1 ring-white/20 dark:ring-white/5">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-500 dark:bg-purple-400 rounded-full"></div>
-                <h4 className="font-semibold text-purple-600 dark:text-purple-400" style={{fontSize: '10px'}}><QrCode className="w-4 h-4 inline mr-1" />QR Code</h4>
+                <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full shadow-sm"></div>
+                <h4 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400" style={{fontSize: '10px', letterSpacing: '0.02em'}}><QrCode className="w-4 h-4 inline mr-1" />QR Code</h4>
               </div>
               <div className="space-y-3">
                 {/* Current QR Code Display */}
@@ -566,10 +566,10 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
           {/* Location Coordinates Section - Only show in edit mode */}
           {editMode && (
-            <div className="bg-transparent backdrop-blur-sm rounded-xl p-4 space-y-3 shadow-sm">
+            <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-xl p-4 space-y-3 shadow-lg border border-slate-200/50 dark:border-slate-700/50 ring-1 ring-white/20 dark:ring-white/5">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-full"></div>
-                <h4 className="font-semibold text-green-600 dark:text-green-400" style={{fontSize: '10px'}}>📍 Coordinates</h4>
+                <div className="w-2 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-sm"></div>
+                <h4 className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400" style={{fontSize: '10px', letterSpacing: '0.02em'}}>📍 Coordinates</h4>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
@@ -668,7 +668,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
         </div>
         <DialogFooter 
-          className="pt-5 mt-0 border-t border-gray-200/60 dark:border-gray-800/60 bg-white/90 dark:bg-gray-950/90 backdrop-blur-2xl rounded-b-3xl -mx-6 -mb-6 px-6 relative overflow-hidden transition-all duration-300"
+          className="pt-5 mt-0 border-t border-purple-200/60 dark:border-purple-800/60 bg-gradient-to-b from-purple-50/90 to-pink-50/80 dark:from-purple-950/90 dark:to-fuchsia-950/80 backdrop-blur-3xl rounded-b-3xl -mx-6 -mb-6 px-6 relative overflow-hidden transition-all duration-300"
           style={{ paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}
         >
           {/* Main Grid Button - Apple Style */}
@@ -816,7 +816,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
       
       {/* QR Confirmation Dialog */}
       <Dialog open={showConfirmDialog} onOpenChange={handleCancelNavigation}>
-        <DialogContent className="max-w-md animate-in zoom-in-95 duration-200 bg-gradient-to-br from-background/95 via-background/98 to-background dark:from-black/95 dark:via-black/98 dark:to-black border-2 border-blue-500/20 dark:border-blue-400/20">
+        <DialogContent className="max-w-md animate-in zoom-in-95 duration-300 bg-gradient-to-br from-purple-50/95 via-pink-50/90 to-background/95 dark:from-purple-950/95 dark:via-fuchsia-950/90 dark:to-black/95 backdrop-blur-2xl border-2 border-purple-300/30 dark:border-purple-500/30 shadow-[0_20px_60px_-15px_rgba(147,51,234,0.3)] ring-1 ring-white/20 dark:ring-purple-400/10">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
               <CheckCircle className="w-5 h-5" />
@@ -918,7 +918,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
       {/* Navigation Confirmation Dialog */}
       <Dialog open={showNavigationConfirm} onOpenChange={setShowNavigationConfirm}>
-        <DialogContent className="max-w-md animate-in zoom-in-95 duration-200 bg-gradient-to-br from-background/95 via-background/98 to-background dark:from-black/95 dark:via-black/98 dark:to-black border-2 border-blue-500/20 dark:border-blue-400/20">
+        <DialogContent className="max-w-md animate-in zoom-in-95 duration-300 bg-gradient-to-br from-purple-50/95 via-pink-50/90 to-background/95 dark:from-purple-950/95 dark:via-fuchsia-950/90 dark:to-black/95 backdrop-blur-2xl border-2 border-purple-300/30 dark:border-purple-500/30 shadow-[0_20px_60px_-15px_rgba(147,51,234,0.3)] ring-1 ring-white/20 dark:ring-purple-400/10">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
               {navigationType === 'google' ? (
@@ -978,7 +978,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
       {/* URL Confirmation Dialog */}
       <Dialog open={showUrlConfirm} onOpenChange={setShowUrlConfirm}>
-        <DialogContent className="max-w-md animate-in zoom-in-95 duration-200 bg-gradient-to-br from-background/95 via-background/98 to-background dark:from-black/95 dark:via-black/98 dark:to-black border-2 border-blue-500/20 dark:border-blue-400/20">
+        <DialogContent className="max-w-md animate-in zoom-in-95 duration-300 bg-gradient-to-br from-purple-50/95 via-pink-50/90 to-background/95 dark:from-purple-950/95 dark:via-fuchsia-950/90 dark:to-black/95 backdrop-blur-2xl border-2 border-purple-300/30 dark:border-purple-500/30 shadow-[0_20px_60px_-15px_rgba(147,51,234,0.3)] ring-1 ring-white/20 dark:ring-purple-400/10">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
               <ExternalLink className="w-5 h-5" />
@@ -1029,7 +1029,7 @@ export function InfoModal({ info, rowId, code, route, location, latitude, longit
 
       {/* Save Confirmation Dialog */}
       <Dialog open={showSaveConfirm} onOpenChange={setShowSaveConfirm}>
-        <DialogContent className="max-w-md animate-in zoom-in-95 duration-200 bg-gradient-to-br from-background/95 via-background/98 to-background dark:from-black/95 dark:via-black/98 dark:to-black border-2 border-green-500/20 dark:border-green-400/20">
+        <DialogContent className="max-w-md animate-in zoom-in-95 duration-300 bg-gradient-to-br from-emerald-50/95 via-green-50/90 to-background/95 dark:from-emerald-950/95 dark:via-green-950/90 dark:to-black/95 backdrop-blur-2xl border-2 border-emerald-300/30 dark:border-emerald-500/30 shadow-[0_20px_60px_-15px_rgba(16,185,129,0.3)] ring-1 ring-white/20 dark:ring-emerald-400/10">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-green-600 dark:text-green-400">
               <Save className="w-5 h-5" />
