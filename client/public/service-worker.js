@@ -1,6 +1,6 @@
 // Service Worker for PWA functionality
-const CACHE_NAME = 'fm-try-route-v1';
-const RUNTIME_CACHE = 'fm-try-route-runtime-v1';
+const CACHE_NAME = 'fm-try-route-v2';
+const RUNTIME_CACHE = 'fm-try-route-runtime-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

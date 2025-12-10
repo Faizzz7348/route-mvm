@@ -1900,8 +1900,7 @@ export function DataTable({
                       <SelectItem value="16">16</SelectItem>
                       <SelectItem value="30">30</SelectItem>
                       <SelectItem value="50">50</SelectItem>
-                      <SelectItem value="100">100</SelectItem>
-                      <SelectItem value="999999">{filteredRowsCount}</SelectItem>
+                      <SelectItem value="999999">All</SelectItem>
                     </SelectContent>
                   </Select>
                   <span className="whitespace-nowrap flex-shrink-0 font-semibold text-gray-300 dark:text-blue-300 [text-shadow:_0_1px_2px_rgb(100_100_100_/_0.4)] dark:[text-shadow:_0_1px_2px_rgb(0_0_0_/_0.3)]">
